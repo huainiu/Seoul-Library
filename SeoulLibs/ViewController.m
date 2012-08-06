@@ -4,7 +4,7 @@
 //
 //  Created by SeokWoo Rho on 12. 7. 29..
 //  Copyright (c) 2012년 __MyCompanyName__. All rights reserved.
-//
+// This is git hub test.
 
 #import "ViewController.h"
 #import "HTTPRequest.h"
