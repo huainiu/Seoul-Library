@@ -13,10 +13,12 @@
 
 @class secondDepthViewController;
 
-@interface BIDThirdViewController : UIViewController 
-<UITableViewDelegate, UITableViewDataSource>
-@property (strong, nonatomic) NSArray *listData;
+@interface BIDThirdViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
+}
 
+@property (strong, nonatomic) NSArray *listData;
+@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 
 
 @end

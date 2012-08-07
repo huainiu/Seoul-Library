@@ -82,7 +82,7 @@ NSMutableDictionary *distResult = Nil;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cIdentifier];
     }
     
-    NSLog(@"lib%i : %@", indexPath.row, [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i", indexPath.row]]);
+//    NSLog(@"lib%i : %@", indexPath.row, [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i", indexPath.row]]);
     cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i", indexPath.row]];
     
     // Configure the cell...

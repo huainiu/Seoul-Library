@@ -16,9 +16,17 @@
 @end
 
 NSString *dataFlag1 = nil; //어떤 데이터를 받아온건지 구분해주는 flag
+int getDataFlag = 0;
+NSMutableArray *dataArray = nil; 
+NSMutableArray *sumArray = nil; 
+NSMutableArray *resultArray = nil;
 
 @implementation BIDThirdViewController
+
+@synthesize activityIndicator;
 @synthesize listData;
+
+
 //NSString *guName = nil;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -63,17 +71,32 @@ NSString *dataFlag1 = nil; //어떤 데이터를 받아온건지 구분해주는
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     [[NSUserDefaults standardUserDefaults] setValue:[listData objectAtIndex:indexPath.row] forKey:@"guName"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    if(activityIndicator == nil){
+        //Activity Indicator 세팅
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+        [activityIndicator setCenter:self.view.center];
+        [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [self.view addSubview : activityIndicator];
+    }
+    
+    //Activity Indicator 활성화.
+    activityIndicator.hidden= FALSE;
+    [activityIndicator startAnimating];
+    
     [self getDist:@"large" gu:[[NSUserDefaults standardUserDefaults] stringForKey:@"guName"] dong:nil];
+    [self getDist:@"small" gu:[[NSUserDefaults standardUserDefaults] stringForKey:@"guName"] dong:nil];
     
 }
 
 
 
 //행정구역 검색. GET
-- (void) getDist:(NSString *)library_class gu:(NSString *)gu dong:(NSString *)dong { 
+- (void) getDist:(NSString *)library_class gu:(NSString *)gu dong:(NSString *)dong {
     NSLog(@"getDist 메서드 실행");
     
     NSString *url = nil;
@@ -106,46 +129,83 @@ NSString *dataFlag1 = nil; //어떤 데이터를 받아온건지 구분해주는
 //행정구역 파싱
 - (void) parseDist:(NSString *)jsonString {
     
+    getDataFlag = getDataFlag + 1; //데이터 1번 받아온거 확보되었으니 flag에 1을 더해줌
+    
+    //파서 객체 생성
     SBJsonParser* parser = [ [ SBJsonParser alloc ] init ];
+    //getDist로 서버에서 받아온 데이터를 딕셔너리에 넣음
     NSMutableDictionary* dist = [ parser objectWithString: jsonString ];
     
     NSLog(@"요청처리시간: %@", [dist valueForKey:@"time"]);
     NSLog(@"반경검색 결과의 수: %@", [dist valueForKey:@"total_rows"]);
     
-    [[NSUserDefaults standardUserDefaults] setInteger:[[dist valueForKey:@"total_rows"] intValue] forKey:@"resultCount"];
-    
-    NSArray *rowsArray = [ dist objectForKey:@"rows"];
-    
-    for (int i=0; i < [rowsArray count]; i++) {
-        NSLog(@"도서관 id%i: %@", i,[[rowsArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
-        NSLog(@"도서관의 좌표%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"st_astext"]);
-        NSLog(@"도서관 이름%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"fclty_nm"]);
-        NSLog(@"도서관 구분%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"fly_gbn"]);
-        NSLog(@"행정구 이름%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"gu_nm"]);
-        [[NSUserDefaults standardUserDefaults] setValue:[[rowsArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"lib%i", i]];
+    if (getDataFlag == 1) {
+        [[NSUserDefaults standardUserDefaults] setInteger:[[dist valueForKey:@"total_rows"] intValue] forKey:@"resultCount"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        NSLog(@"행정동 이름%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"hnr_nm"]);
-        NSLog(@"주 지번%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"masterno"]);
-        NSLog(@"보조 지번%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"slaveno"]);
-        NSLog(@"운영 주최%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"orn_org"]);
-        NSLog(@"개관일%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"opnng_de"]);
+        NSLog(@"resultCount : %i", [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"]);
+    } else {
+        [[NSUserDefaults standardUserDefaults] setInteger:[[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"] +[[dist valueForKey:@"total_rows"] intValue] forKey:@"resultCount"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        NSLog(@"resultCount : %i", [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"]);
     }
     
+    dataArray = [dist objectForKey:@"rows"];
+    NSLog(@"[dataArray objectAtIndex:0] : %@", [dataArray objectAtIndex:0]);
     
+    NSLog(@"dataArray count : %i", [dataArray count]);
+    
+    
+    if (getDataFlag == 1) {
+        sumArray = dataArray;
+        [sumArray setArray:dataArray]; //새로 받아온 데이터 Array중 rows 부분을 sumArray에 넣어준다
+    }
+    else {
+        for (int i=0; i < [dataArray count]; i++) {
+            [sumArray addObject:[dataArray objectAtIndex:i]];
+        }
+    }
+
+    if(getDataFlag == 2) { //데이터를 2번 받아왔다면(large, small)
+    
+        resultArray = sumArray;
+
+        //정렬
+        NSSortDescriptor *arraySorter = [[NSSortDescriptor alloc] initWithKey:@"userName" ascending:YES];
+        [resultArray sortUsingDescriptors:[NSArray arrayWithObject:arraySorter]];
+
+//        resultArray = [resultArray sortedArrayUsingSelector:@selector(nameCompare:)];
+
+        for (int i=0; i < [resultArray count]; i++) {
+            NSLog(@"도서관 id%i: %@", i,[[resultArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
+            NSLog(@"도서관의 좌표%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"st_astext"]);
+            NSLog(@"도서관 이름%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"fclty_nm"]);
+            NSLog(@"도서관 구분%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"fly_gbn"]);
+            NSLog(@"행정구 이름%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"gu_nm"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[resultArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"lib%i", i]];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            NSLog(@"행정동 이름%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"hnr_nm"]);
+            NSLog(@"주 지번%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"masterno"]);
+            NSLog(@"보조 지번%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"slaveno"]);
+            NSLog(@"운영 주최%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"orn_org"]);
+            NSLog(@"개관일%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"opnng_de"]);
+        }
+        //Activity Indicator 비활성화.
+        [activityIndicator stopAnimating];     
+        activityIndicator.hidden= TRUE;
+        
+        //해당 구의 도서관 목록 띄워주는 페이지 호출
+        BID2ndDepthViewController *secondViewController = [[BID2ndDepthViewController alloc] initWithStyle:UITableViewStylePlain];
+        [self.navigationController pushViewController:secondViewController animated:YES];
+    }
     
     //    NSMutableDictionary *distResult = [NSMutableDictionary dictionaryWithCapacity:total_rows];
     //    for (int i=0; i < [rowsArray count]; i++) {
     //        [distResult setObject:[[rowsArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"lib%i", i]];
     //    }
     
-    
-    
     //    [[NSUserDefaults standardUserDefaults] setValue:distResult forKey:@"distResult"];
     //    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    BID2ndDepthViewController *secondViewController = [[BID2ndDepthViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self.navigationController pushViewController:secondViewController animated:YES];
     
 }
 
