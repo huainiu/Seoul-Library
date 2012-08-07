@@ -148,6 +148,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		297ADF3715D171D400B9C357 /* customLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				2E3A663115CC3228007A7F52 /* ViewController.h */,
+				2E3A663215CC3228007A7F52 /* ViewController.m */,
+				2E3A663515CC3275007A7F52 /* HTTPRequest.h */,
+				2E3A663615CC3275007A7F52 /* HTTPRequest.m */,
+				2E3A663815CC3290007A7F52 /* HTTPRequestPost.h */,
+				2E3A663915CC3290007A7F52 /* HTTPRequestPost.m */,
+			);
+			name = customLibrary;
+			sourceTree = "<group>";
+		};
 		2E3A663B15CC334C007A7F52 /* SBJason */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,14 +240,9 @@
 		2EF6F5C015C7C311007BA3EB /* SeoulLibs */ = {
 			isa = PBXGroup;
 			children = (
+				297ADF3715D171D400B9C357 /* customLibrary */,
 				2E3A666115CC338D007A7F52 /* Image */,
 				2E3A663B15CC334C007A7F52 /* SBJason */,
-				2E3A663115CC3228007A7F52 /* ViewController.h */,
-				2E3A663215CC3228007A7F52 /* ViewController.m */,
-				2E3A663515CC3275007A7F52 /* HTTPRequest.h */,
-				2E3A663615CC3275007A7F52 /* HTTPRequest.m */,
-				2E3A663815CC3290007A7F52 /* HTTPRequestPost.h */,
-				2E3A663915CC3290007A7F52 /* HTTPRequestPost.m */,
 				2EF6F5C915C7C311007BA3EB /* BIDAppDelegate.h */,
 				2EF6F5CA15C7C311007BA3EB /* BIDAppDelegate.m */,
 				2EF6F5CC15C7C311007BA3EB /* BIDFirstViewController.h */,
