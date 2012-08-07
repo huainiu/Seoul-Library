@@ -70,7 +70,7 @@ NSMutableDictionary *distResult = Nil;
 {
     // Return the number of rows in the section.
     
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"];;
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

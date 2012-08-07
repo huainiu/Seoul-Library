@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "BIDLibInfoViewController.h"
 
-@interface BIDFirstViewController : UIViewController
-    <UITableViewDelegate, UITableViewDataSource>
+@interface BIDFirstViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> 
+{
+    UITableView *resultTable;
+}
+
+- (void) getRadius:(NSString *)library_class longtitude:(NSString *)longtitude latitude:(NSString *)latitude radius:(NSString *)radius; //반경 검색
+- (void) parseRadius:(NSString *)jsonString; //반경 파싱
+
 @property (strong, nonatomic) NSArray *listData;
+@property (nonatomic, retain) IBOutlet UITableView *resultTable;
+
 
 @end

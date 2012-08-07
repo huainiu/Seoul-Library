@@ -170,7 +170,7 @@ NSMutableArray *resultArray = nil;
         resultArray = sumArray;
 
         //정렬
-        NSSortDescriptor *arraySorter = [[NSSortDescriptor alloc] initWithKey:@"userName" ascending:YES];
+        NSSortDescriptor *arraySorter = [[NSSortDescriptor alloc] initWithKey:@"fclty_nm" ascending:YES];
         [resultArray sortUsingDescriptors:[NSArray arrayWithObject:arraySorter]];
 
 //        resultArray = [resultArray sortedArrayUsingSelector:@selector(nameCompare:)];

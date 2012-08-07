@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		297ADF4515D192DE00B9C357 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5F715C7CA7A007BA3EB /* MapKit.framework */; };
+		297ADF4615D192E500B9C357 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5F915C7CB81007BA3EB /* CoreLocation.framework */; };
 		2E1E511615CC0AAB007C4539 /* BID2ndDepthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1E511415CC0AAB007C4539 /* BID2ndDepthViewController.m */; };
 		2E1E511715CC0AAB007C4539 /* BID2ndDepthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1E511515CC0AAB007C4539 /* BID2ndDepthViewController.xib */; };
 		2E3A663315CC3228007A7F52 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3A663215CC3228007A7F52 /* ViewController.m */; };
@@ -51,8 +53,6 @@
 		2EF6F5F415C7C600007BA3EB /* fourth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5F015C7C600007BA3EB /* fourth@2x.png */; };
 		2EF6F5F515C7C600007BA3EB /* third.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5F115C7C600007BA3EB /* third.png */; };
 		2EF6F5F615C7C600007BA3EB /* third@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5F215C7C600007BA3EB /* third@2x.png */; };
-		2EF6F5F815C7CA7B007BA3EB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5F715C7CA7A007BA3EB /* MapKit.framework */; };
-		2EF6F5FA15C7CB81007BA3EB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5F915C7CB81007BA3EB /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,8 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EF6F5FA15C7CB81007BA3EB /* CoreLocation.framework in Frameworks */,
-				2EF6F5F815C7CA7B007BA3EB /* MapKit.framework in Frameworks */,
+				297ADF4615D192E500B9C357 /* CoreLocation.framework in Frameworks */,
+				297ADF4515D192DE00B9C357 /* MapKit.framework in Frameworks */,
 				2EF6F5BB15C7C311007BA3EB /* UIKit.framework in Frameworks */,
 				2EF6F5BD15C7C311007BA3EB /* Foundation.framework in Frameworks */,
 				2EF6F5BF15C7C311007BA3EB /* CoreGraphics.framework in Frameworks */,
@@ -211,8 +211,6 @@
 		2EF6F5AB15C7C311007BA3EB = {
 			isa = PBXGroup;
 			children = (
-				2EF6F5F915C7CB81007BA3EB /* CoreLocation.framework */,
-				2EF6F5F715C7CA7A007BA3EB /* MapKit.framework */,
 				2EF6F5C015C7C311007BA3EB /* SeoulLibs */,
 				2EF6F5B915C7C311007BA3EB /* Frameworks */,
 				2EF6F5B715C7C311007BA3EB /* Products */,
@@ -230,6 +228,8 @@
 		2EF6F5B915C7C311007BA3EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2EF6F5F915C7CB81007BA3EB /* CoreLocation.framework */,
+				2EF6F5F715C7CA7A007BA3EB /* MapKit.framework */,
 				2EF6F5BA15C7C311007BA3EB /* UIKit.framework */,
 				2EF6F5BC15C7C311007BA3EB /* Foundation.framework */,
 				2EF6F5BE15C7C311007BA3EB /* CoreGraphics.framework */,
