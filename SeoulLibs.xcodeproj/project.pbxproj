@@ -31,6 +31,7 @@
 		2EB3EAF015CBB5C300602A12 /* BIDMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3EAEE15CBB5C300602A12 /* BIDMapViewController.m */; };
 		2EB3EAF115CBB5C300602A12 /* BIDMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EB3EAEF15CBB5C300602A12 /* BIDMapViewController.xib */; };
 		2EB3EAF515CBCA3600602A12 /* BIDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3EAF415CBCA3600602A12 /* BIDTableViewCell.m */; };
+		2EDEA5EA15D2A17600038F3D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDEA5E915D2A17600038F3D /* Default.png */; };
 		2EF6F5BB15C7C311007BA3EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5BA15C7C311007BA3EB /* UIKit.framework */; };
 		2EF6F5BD15C7C311007BA3EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5BC15C7C311007BA3EB /* Foundation.framework */; };
 		2EF6F5BF15C7C311007BA3EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5BE15C7C311007BA3EB /* CoreGraphics.framework */; };
@@ -98,6 +99,7 @@
 		2EB3EAEF15CBB5C300602A12 /* BIDMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BIDMapViewController.xib; path = ../BIDMapViewController.xib; sourceTree = "<group>"; };
 		2EB3EAF315CBCA3500602A12 /* BIDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDTableViewCell.h; sourceTree = "<group>"; };
 		2EB3EAF415CBCA3600602A12 /* BIDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDTableViewCell.m; sourceTree = "<group>"; };
+		2EDEA5E915D2A17600038F3D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		2EF6F5B615C7C311007BA3EB /* SeoulLibs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeoulLibs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF6F5BA15C7C311007BA3EB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2EF6F5BC15C7C311007BA3EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -196,6 +198,7 @@
 		2E3A666115CC338D007A7F52 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				2EDEA5E915D2A17600038F3D /* Default.png */,
 				2EF6F5F215C7C600007BA3EB /* third@2x.png */,
 				2EF6F5CF15C7C311007BA3EB /* first.png */,
 				2EF6F5D115C7C311007BA3EB /* first@2x.png */,
@@ -352,6 +355,7 @@
 				2EB3EAF115CBB5C300602A12 /* BIDMapViewController.xib in Resources */,
 				2E1E511715CC0AAB007C4539 /* BID2ndDepthViewController.xib in Resources */,
 				2E3A666E15CCA557007A7F52 /* BIDLibInfoViewController.xib in Resources */,
+				2EDEA5EA15D2A17600038F3D /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
