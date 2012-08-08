@@ -15,7 +15,7 @@
 
 @end
 
-NSString *dataFlag1 = nil; //어떤 데이터를 받아온건지 구분해주는 flag
+NSString *dataFlag3 = nil; //어떤 데이터를 받아온건지 구분해주는 flag
 int getDataFlag = 0;
 NSMutableArray *dataArray = nil; 
 NSMutableArray *sumArray = nil; 
@@ -100,7 +100,7 @@ NSMutableArray *resultArray = nil;
     NSLog(@"getDist 메서드 실행");
     
     NSString *url = nil;
-    dataFlag1 = @"getDist";
+    dataFlag3 = @"getDist";
     
     //접속할 주소 설정
     //예시 : http://seoullibrary.herokuapp.com/dist/large/관악구
@@ -213,27 +213,27 @@ NSMutableArray *resultArray = nil;
 //HTTP통신 완료되었을 경우 실행되는 메서드(데이터를 받아왔을 때)
 - (void)didReceiveFinished:(NSString *)result
 {
-    NSLog(@"didReceiveFinished 메소드 실행. dataFlag : %@", dataFlag1);
+    NSLog(@"didReceiveFinished 메소드 실행. dataFlag : %@", dataFlag3);
     
     NSString *jsonString = result;
     
     //dataFlag 값에 따라서 각각 다른 파싱메서드를 호출해준다
-    if ([dataFlag1 isEqualToString:@"getRadius"]) {
+    if ([dataFlag3 isEqualToString:@"getRadius"]) {
         //        [self parseRadius:jsonString];
     }
-    else if ([dataFlag1 isEqualToString:@"getDist"]) {
+    else if ([dataFlag3 isEqualToString:@"getDist"]) {
         [self parseDist:jsonString];
     }
-    else if ([dataFlag1 isEqualToString:@"getComment"]) {
+    else if ([dataFlag3 isEqualToString:@"getComment"]) {
         //        [self parseComment:jsonString];
     }
-    else if ([dataFlag1 isEqualToString:@"updateComment"]) {
+    else if ([dataFlag3 isEqualToString:@"updateComment"]) {
         //        [self parseUpdateComment:jsonString];
     }
-    else if ([dataFlag1 isEqualToString:@"getRating"]) {
+    else if ([dataFlag3 isEqualToString:@"getRating"]) {
         //        [self parseRating:jsonString];
     }
-    else if ([dataFlag1 isEqualToString:@"updateRating"]) {
+    else if ([dataFlag3 isEqualToString:@"updateRating"]) {
         //        [self parseUpdateRating:jsonString];
     }
     else {
