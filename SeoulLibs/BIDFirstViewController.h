@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "BIDLibInfoViewController.h"
 
-@interface BIDFirstViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> 
+@interface BIDFirstViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 {
     UITableView *resultTable;
+    CLLocationManager *locationManager;
+    CLLocation *startingPoint;
 }
 
 - (void) getRadius:(NSString *)library_class longtitude:(NSString *)longtitude latitude:(NSString *)latitude radius:(NSString *)radius; //반경 검색
@@ -19,6 +22,8 @@
 
 @property (strong, nonatomic) NSArray *listData;
 @property (nonatomic, retain) IBOutlet UITableView *resultTable;
+@property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) CLLocation *startingPoint;
 
 
 @end

@@ -30,6 +30,8 @@ NSMutableArray *radiusResultArray = nil;
 @implementation BIDFirstViewController
 @synthesize listData;
 @synthesize resultTable;
+@synthesize locationManager;
+@synthesize startingPoint;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,26 +46,42 @@ NSMutableArray *radiusResultArray = nil;
 							
 - (void)viewDidLoad
 {
+    NSLog(@"FirstViewController viewDidLoad 메서드 실행");
+    
     [super viewDidLoad];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    
     self.title = @"내 주변";
-	// Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 - (void)viewDidAppear {    
-    CLLocationManager *locationManager=[[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    [locationManager startUpdatingLocation];
+    NSLog(@"FirstViewController viewDidAppear 메서드 실행");
+
 }
 
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    NSLog(@"FirstViewController didUpdateToLocation 메서드 실행");
+
+    if (startingPoint == nil) {
+        self.startingPoint = newLocation;
+    }
     
-    currentLatitude = [[NSString alloc] initWithFormat:@"위도 : %g°", newLocation.coordinate.latitude];    
-    currentLongtitude = [[NSString alloc] initWithFormat:@"경도 : %g°", newLocation.coordinate.longitude];
+    currentLatitude = [[NSString alloc] initWithFormat:@"%g", newLocation.coordinate.latitude];
+    currentLongtitude = [[NSString alloc] initWithFormat:@"%g", newLocation.coordinate.longitude];
+    
+    [locationManager stopUpdatingLocation];
+
+    NSLog(@"latitude : %@, longtitude : %@", currentLatitude, currentLongtitude);
 
     [self getRadius:@"large" longtitude:currentLongtitude latitude:currentLatitude radius:@"2000"];
     [self getRadius:@"small" longtitude:currentLongtitude latitude:currentLatitude radius:@"2000"];
+    
 }
 
 
