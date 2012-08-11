@@ -17,9 +17,9 @@
 
 NSString *dataFlag3 = nil; //어떤 데이터를 받아온건지 구분해주는 flag
 int getDataFlag = 0;
-NSMutableArray *dataArray = nil; 
-NSMutableArray *sumArray = nil; 
-NSMutableArray *resultArray = nil;
+NSMutableArray *distDataArray = nil; 
+NSMutableArray *distSumArray = nil; 
+NSMutableArray *distResultArray = nil;
 
 @implementation BIDThirdViewController
 
@@ -72,7 +72,6 @@ NSMutableArray *resultArray = nil;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     [[NSUserDefaults standardUserDefaults] setValue:[listData objectAtIndex:indexPath.row] forKey:@"guName"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -149,46 +148,55 @@ NSMutableArray *resultArray = nil;
         NSLog(@"resultCount : %i", [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"]);
     }
     
-    dataArray = [dist objectForKey:@"rows"];
-    NSLog(@"[dataArray objectAtIndex:0] : %@", [dataArray objectAtIndex:0]);
+    distDataArray = [dist objectForKey:@"rows"];
+    NSLog(@"[distDataArray objectAtIndex:0] : %@", [distDataArray objectAtIndex:0]);
     
-    NSLog(@"dataArray count : %i", [dataArray count]);
+    NSLog(@"distDataArray count : %i", [distDataArray count]);
     
     
     if (getDataFlag == 1) {
-        sumArray = dataArray;
-        [sumArray setArray:dataArray]; //새로 받아온 데이터 Array중 rows 부분을 sumArray에 넣어준다
+        distSumArray = distDataArray;
+        [distSumArray setArray:distDataArray]; //새로 받아온 데이터 Array중 rows 부분을 sumArray에 넣어준다
     }
     else {
-        for (int i=0; i < [dataArray count]; i++) {
-            [sumArray addObject:[dataArray objectAtIndex:i]];
+        for (int i=0; i < [distDataArray count]; i++) {
+            [distSumArray addObject:[distDataArray objectAtIndex:i]];
         }
     }
 
     if(getDataFlag == 2) { //데이터를 2번 받아왔다면(large, small)
     
-        resultArray = sumArray;
+        distResultArray = distSumArray;
 
         //정렬
         NSSortDescriptor *arraySorter = [[NSSortDescriptor alloc] initWithKey:@"fclty_nm" ascending:YES];
-        [resultArray sortUsingDescriptors:[NSArray arrayWithObject:arraySorter]];
+        [distResultArray sortUsingDescriptors:[NSArray arrayWithObject:arraySorter]];
 
 //        resultArray = [resultArray sortedArrayUsingSelector:@selector(nameCompare:)];
 
-        for (int i=0; i < [resultArray count]; i++) {
-            NSLog(@"도서관 id%i: %@", i,[[resultArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
-            NSLog(@"도서관의 좌표%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"st_astext"]);
-            NSLog(@"도서관 이름%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"fclty_nm"]);
-            NSLog(@"도서관 구분%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"fly_gbn"]);
-            NSLog(@"행정구 이름%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"gu_nm"]);
-            [[NSUserDefaults standardUserDefaults] setValue:[[resultArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"lib%i", i]];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+        for (int i=0; i < [distResultArray count]; i++) {
+            NSLog(@"도서관 id%i: %@", i,[[distResultArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"cartodb_id"] forKey:[NSString stringWithFormat:@"3_lib%i_id", i]];
+            NSLog(@"도서관의 좌표%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"st_astext"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"st_astext"] forKey:[NSString stringWithFormat:@"3_lib%i_point", i]];
+            NSLog(@"도서관 이름%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"fclty_nm"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"3_lib%i_name", i]];
+            NSLog(@"도서관 구분%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"fly_gbn"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"fly_gbn"] forKey:[NSString stringWithFormat:@"3_lib%i_category", i]];
+            NSLog(@"행정구 이름%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"gu_nm"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"gu_nm"] forKey:[NSString stringWithFormat:@"3_lib%i_guname", i]];
+            NSLog(@"행정동 이름%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"hnr_nm"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"hnr_nm"] forKey:[NSString stringWithFormat:@"3_lib%i_dongname", i]];
+            NSLog(@"주 지번%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"masterno"]);
+            NSLog(@"보조 지번%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"slaveno"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"slaveno"] forKey:[NSString stringWithFormat:@"3_lib%i_slaveno", i]];
+            NSLog(@"운영 주최%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"orn_org"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"orn_org"] forKey:[NSString stringWithFormat:@"3_lib%i_organization", i]];
+            NSLog(@"개관일%i: %@", i, [[distResultArray objectAtIndex:i] valueForKey:@"opnng_de"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"opnng_de"] forKey:[NSString stringWithFormat:@"3_lib%i_opendate", i]];
             
-            NSLog(@"행정동 이름%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"hnr_nm"]);
-            NSLog(@"주 지번%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"masterno"]);
-            NSLog(@"보조 지번%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"slaveno"]);
-            NSLog(@"운영 주최%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"orn_org"]);
-            NSLog(@"개관일%i: %@", i, [[resultArray objectAtIndex:i] valueForKey:@"opnng_de"]);
+            [[NSUserDefaults standardUserDefaults] synchronize];
+
         }
         //Activity Indicator 비활성화.
         [activityIndicator stopAnimating];     

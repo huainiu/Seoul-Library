@@ -83,7 +83,7 @@ NSMutableDictionary *distResult = Nil;
     }
     
 //    NSLog(@"lib%i : %@", indexPath.row, [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i", indexPath.row]]);
-    cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i", indexPath.row]];
+    cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_name", indexPath.row]];
     
     // Configure the cell...
     
@@ -134,16 +134,14 @@ NSMutableDictionary *distResult = Nil;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [libListTable deselectRowAtIndexPath:indexPath animated:YES];
+ 
+    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectedLib"];
+    [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"tabFlag"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     BIDLibInfoViewController *libInfoViewController = [BIDLibInfoViewController alloc];
     [self.navigationController pushViewController:libInfoViewController animated:YES];
-    
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+
 }
 
 @end

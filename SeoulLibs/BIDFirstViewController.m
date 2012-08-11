@@ -32,6 +32,7 @@ NSMutableArray *radiusResultArray = nil;
 @synthesize resultTable;
 @synthesize locationManager;
 @synthesize startingPoint;
+@synthesize activityIndicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -77,6 +78,20 @@ NSMutableArray *radiusResultArray = nil;
     
     [locationManager stopUpdatingLocation];
 
+    
+    
+    if(activityIndicator == nil){
+        //Activity Indicator 세팅
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+        [activityIndicator setCenter:self.view.center];
+        [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [self.view addSubview : activityIndicator];
+    }
+    
+    //Activity Indicator 활성화.
+    activityIndicator.hidden= FALSE;
+    [activityIndicator startAnimating];
+    
     NSLog(@"latitude : %@, longtitude : %@", currentLatitude, currentLongtitude);
 
     [self getRadius:@"large" longtitude:currentLongtitude latitude:currentLatitude radius:@"2000"];
@@ -185,17 +200,30 @@ NSMutableArray *radiusResultArray = nil;
         for (int i=0; i < [radiusResultArray count]; i++) {
             NSLog(@"i : %i", i);
             NSLog(@"도서관 id%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"] forKey:[NSString stringWithFormat:@"1_lib%i_id", i]];
             NSLog(@"도서관의 좌표%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"] forKey:[NSString stringWithFormat:@"1_lib%i_point", i]];
             NSLog(@"도서관 이름%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"]);
-            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"lib%i", i]];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"1_lib%i_name", i]];
             NSLog(@"도서관 구분%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"fly_gbn"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"fly_gbn"] forKey:[NSString stringWithFormat:@"1_lib%i_category", i]];
             NSLog(@"행정구 이름%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"gu_nm"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"gu_nm"] forKey:[NSString stringWithFormat:@"1_lib%i_guname", i]];
             NSLog(@"행정동 이름%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"hnr_nm"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"hnr_nm"] forKey:[NSString stringWithFormat:@"1_lib%i_dongname", i]];
             NSLog(@"주 지번%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"masterno"]);
             NSLog(@"보조 지번%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"slaveno"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"slaveno"] forKey:[NSString stringWithFormat:@"1_lib%i_slaveno", i]];
             NSLog(@"운영 주최%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"orn_org"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"orn_org"] forKey:[NSString stringWithFormat:@"1_lib%i_organization", i]];
             NSLog(@"개관일%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"opnng_de"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"opnng_de"] forKey:[NSString stringWithFormat:@"1_lib%i_opendate", i]];
+
+            [[NSUserDefaults standardUserDefaults] synchronize];
+
+            //Activity Indicator 비활성화.
+            [activityIndicator stopAnimating];     
+            activityIndicator.hidden= TRUE;
             
             [resultTable beginUpdates];
             NSIndexPath *indexPath0 = [NSIndexPath indexPathForRow:i inSection:0];
@@ -223,7 +251,16 @@ NSMutableArray *radiusResultArray = nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BIDLibInfoViewController *libInfoViewController = [BIDLibInfoViewController alloc];
+    
+    [resultTable deselectRowAtIndexPath:indexPath animated:YES];
+    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectedLib"];
+    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"tabFlag"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self.navigationController pushViewController:libInfoViewController animated:YES];
+    
+    
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

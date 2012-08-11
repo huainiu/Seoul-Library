@@ -11,7 +11,16 @@
 #import <MapKit/MKUserLocation.h>
 
 @interface BIDSecondViewController : UIViewController
+{
+    UITextField *guText;
+    UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
+
+}
+
+@property (nonatomic, retain) IBOutlet UITextField *guText;
+@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 
 - (IBAction)goToInnerDepth:(id)sender;
+- (IBAction)goSearch:(id)sender;
 
 @end

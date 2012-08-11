@@ -15,11 +15,14 @@
     UITableView *resultTable;
     CLLocationManager *locationManager;
     CLLocation *startingPoint;
+    UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
+
 }
 
 - (void) getRadius:(NSString *)library_class longtitude:(NSString *)longtitude latitude:(NSString *)latitude radius:(NSString *)radius; //반경 검색
 - (void) parseRadius:(NSString *)jsonString; //반경 파싱
 
+@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 @property (strong, nonatomic) NSArray *listData;
 @property (nonatomic, retain) IBOutlet UITableView *resultTable;
 @property (nonatomic, retain) CLLocationManager *locationManager;

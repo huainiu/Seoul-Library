@@ -27,10 +27,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"**도서관";
+    self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
 
     // Do any additional setup after loading the view from its nib.
 }
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"tabFlag"]) {
+        case 1:
+            self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
+
+            break;
+            
+        case 3:
+            self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
+
+            break;
+    }
+    
+    
+}
+
+
 
 - (void)viewDidUnload
 {
