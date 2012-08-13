@@ -10,7 +10,6 @@
 
 @interface BIDLibInfoViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 {
-    UITableView *libListTable;
 }
 
 @end

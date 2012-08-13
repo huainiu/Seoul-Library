@@ -21,16 +21,12 @@
     CLLocationCoordinate2D coordinate; //핀 좌표
     NSString *title; //핀 제목
     NSString *subtitle; //핀 부제
-    
-    NSMutableArray *longtitudeArray;
-    NSMutableArray *latitudeArray;
+
     
 }
 @property (nonatomic, retain) CLLocation *startPoint;
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
-@property (nonatomic) NSMutableArray *longtitudeArray;
-@property (nonatomic) NSMutableArray *latitudeArray;
 
 @end

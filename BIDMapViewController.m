@@ -22,8 +22,7 @@
 @synthesize coordinate;
 @synthesize title;
 @synthesize subtitle;
-@synthesize longtitudeArray;
-@synthesize latitudeArray;
+
 
 
 
@@ -62,12 +61,7 @@
     [myMapView regionThatFits:region];
     [myMapView setShowsUserLocation:YES];
     [myMapView .userLocation setTitle:@"현 위치"];
-    
-    longtitudeArray = [[NSMutableArray alloc] init];
-    latitudeArray = [[NSMutableArray alloc] init];
-    
-    NSMutableArray *markerArray = nil;
-    
+        
     for(int i=0; i<[[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"]; i++) {
         MapMarker *marker = [[MapMarker alloc] init];
         MKCoordinateRegion markerRegion;

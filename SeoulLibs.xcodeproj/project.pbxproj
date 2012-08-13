@@ -405,11 +405,8 @@
 				2E3A665F15CC3362007A7F52 /* SBJsonStreamParser.m in Sources */,
 				2E3A666015CC3362007A7F52 /* SBJsonStreamParserAccumulator.m in Sources */,
 				2E3A666D15CCA557007A7F52 /* BIDLibInfoViewController.m in Sources */,
-<<<<<<< HEAD
 				2EEED92215D8F3EA003F4678 /* BIDRadiusSelectViewController.m in Sources */,
-=======
 				297ADF9D15D92F0700B9C357 /* MapMarker.m in Sources */,
->>>>>>> [2번탭] 검색시 맵뷰에 핀 표시
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -85,6 +85,10 @@ NSMutableArray *distResultArray2 = nil;
     
     [self getDist:@"large" gu:guText.text dong:nil];
     [self getDist:@"small" gu:guText.text dong:nil];
+    
+    //키보드 사라지게 하기
+    [guText resignFirstResponder];
+
 }
 
 
