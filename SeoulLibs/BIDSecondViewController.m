@@ -172,7 +172,38 @@ NSMutableArray *distResultArray2 = nil;
             NSLog(@"도서관 id%i: %@", i,[[distResultArray2 objectAtIndex:i] valueForKey:@"cartodb_id"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray2 objectAtIndex:i] valueForKey:@"cartodb_id"] forKey:[NSString stringWithFormat:@"2_lib%i_id", i]];
             NSLog(@"도서관의 좌표%i: %@", i, [[distResultArray2 objectAtIndex:i] valueForKey:@"st_astext"]);
-            [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray2 objectAtIndex:i] valueForKey:@"st_astext"] forKey:[NSString stringWithFormat:@"2_lib%i_point", i]];
+            
+            //좌표 받아온거 파싱해서 longtitude와 latitude로 분리하기
+            NSArray *pointTempArray1 = [[[distResultArray2 objectAtIndex:i] valueForKey:@"st_astext"] componentsSeparatedByString:@"POINT("];
+            NSString *pointTempString1 = ((NSString *)[pointTempArray1 objectAtIndex:1]);
+            NSArray *pointTempArray2 = [pointTempString1 componentsSeparatedByString:@" "];
+            NSString *longtitude = ((NSString *)[pointTempArray2 objectAtIndex:0]);
+            NSArray *pointTempArray3 = [((NSString *)[pointTempArray2 objectAtIndex:1]) componentsSeparatedByString:@")"];
+            NSString *latitude = ((NSString *)[pointTempArray3 objectAtIndex:0]);
+            
+            [[NSUserDefaults standardUserDefaults] setValue:longtitude forKey:[NSString stringWithFormat:@"2_lib%i_longtitude", i]];
+            [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:[NSString stringWithFormat:@"2_lib%i_latitude", i]];
+            NSLog(@"longtitude : %@, latitude : %@", longtitude, latitude);
+            
+            
+                                       
+/*            
+            //dirkey, ukey 파싱
+            NSString *pushMessage = [NSString stringWithFormat:@"%@", userInfo];
+            
+            NSArray *dirkeyTempArray1 = [pushMessage componentsSeparatedByString:@"dirkey="];
+            NSString *dirkeyTempString1 = ((NSString *)[dirkeyTempArray1 objectAtIndex:1]);
+            NSArray *dirkeyTempArray2 = [dirkeyTempString1 componentsSeparatedByString:@"\""];
+            NSString *dirKey = ((NSString *)[dirkeyTempArray2 objectAtIndex:0]);
+            
+            NSArray *ukeyTempArray1 = [pushMessage componentsSeparatedByString:@"ukey="];
+            NSString *ukeyTempString1 = ((NSString *)[ukeyTempArray1 objectAtIndex:1]);
+            NSArray *ukeyTempArray2 = [ukeyTempString1 componentsSeparatedByString:@"\""];
+            NSString *uKey = ((NSString *)[ukeyTempArray2 objectAtIndex:0]);
+*/
+            
+            
+            
             NSLog(@"도서관 이름%i: %@", i, [[distResultArray2 objectAtIndex:i] valueForKey:@"fclty_nm"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray2 objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"2_lib%i_name", i]];
             NSLog(@"도서관 구분%i: %@", i, [[distResultArray2 objectAtIndex:i] valueForKey:@"fly_gbn"]);

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		297ADF4515D192DE00B9C357 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5F715C7CA7A007BA3EB /* MapKit.framework */; };
 		297ADF4615D192E500B9C357 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5F915C7CB81007BA3EB /* CoreLocation.framework */; };
+		297ADF9D15D92F0700B9C357 /* MapMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 297ADF9C15D92F0700B9C357 /* MapMarker.m */; };
 		2E1E511615CC0AAB007C4539 /* BID2ndDepthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1E511415CC0AAB007C4539 /* BID2ndDepthViewController.m */; };
 		2E1E511715CC0AAB007C4539 /* BID2ndDepthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1E511515CC0AAB007C4539 /* BID2ndDepthViewController.xib */; };
 		2E3A663315CC3228007A7F52 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3A663215CC3228007A7F52 /* ViewController.m */; };
@@ -59,6 +60,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		297ADF9B15D92F0700B9C357 /* MapMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarker.h; sourceTree = "<group>"; };
+		297ADF9C15D92F0700B9C357 /* MapMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarker.m; sourceTree = "<group>"; };
 		2E1E511315CC0AAB007C4539 /* BID2ndDepthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BID2ndDepthViewController.h; sourceTree = "<group>"; };
 		2E1E511415CC0AAB007C4539 /* BID2ndDepthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BID2ndDepthViewController.m; sourceTree = "<group>"; };
 		2E1E511515CC0AAB007C4539 /* BID2ndDepthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BID2ndDepthViewController.xib; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 				2EB3EAED15CBB5C300602A12 /* BIDMapViewController.h */,
 				2EB3EAEE15CBB5C300602A12 /* BIDMapViewController.m */,
 				2EB3EAEF15CBB5C300602A12 /* BIDMapViewController.xib */,
+				297ADF9B15D92F0700B9C357 /* MapMarker.h */,
+				297ADF9C15D92F0700B9C357 /* MapMarker.m */,
 				2E3A666A15CCA557007A7F52 /* BIDLibInfoViewController.h */,
 				2E3A666B15CCA557007A7F52 /* BIDLibInfoViewController.m */,
 				2E3A666C15CCA557007A7F52 /* BIDLibInfoViewController.xib */,
@@ -400,7 +405,11 @@
 				2E3A665F15CC3362007A7F52 /* SBJsonStreamParser.m in Sources */,
 				2E3A666015CC3362007A7F52 /* SBJsonStreamParserAccumulator.m in Sources */,
 				2E3A666D15CCA557007A7F52 /* BIDLibInfoViewController.m in Sources */,
+<<<<<<< HEAD
 				2EEED92215D8F3EA003F4678 /* BIDRadiusSelectViewController.m in Sources */,
+=======
+				297ADF9D15D92F0700B9C357 /* MapMarker.m in Sources */,
+>>>>>>> [2번탭] 검색시 맵뷰에 핀 표시
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
