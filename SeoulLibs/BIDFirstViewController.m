@@ -286,7 +286,10 @@ NSMutableArray *radiusResultArray = nil;
 
 - (IBAction)popupSetting {
     BIDRadiusSelectViewController *modalSetting = [[BIDRadiusSelectViewController alloc]initWithNibName:@"BIDRadiusSelectViewController" bundle:nil];
-    [modalSetting setModalTransitionStyle:UIModalTransitionStylePartialCurl]; //모달뷰 전환효과
+    [modalSetting setModalTransitionStyle:UIModalTransitionStyleCoverVertical]; //모달뷰 전환효과 - 위로 올리기
+    //[modalSetting setModalTransitionStyle:UIModalTransitionStyleCrossDissolve]; //모달뷰 전환효과 - 디졸브
+    //[modalSetting setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal]; //모달뷰 전환효과 - 옆으로 넘기기
+    //[modalSetting setModalTransitionStyle:UIModalTransitionStylePartialCurl]; //모달뷰 전환효과 - 접어 올리기
     [self presentModalViewController:modalSetting animated:YES];
 }
     

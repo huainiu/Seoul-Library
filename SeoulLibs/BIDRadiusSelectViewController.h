@@ -9,9 +9,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIDRadiusSelectViewController : UIViewController
+@interface BIDRadiusSelectViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+    NSArray *radiusArray; //반경 목록 어레이
+}
 
 - (IBAction)closeSetting;
 //모달뷰 닫기 버튼 액션
+
+- (IBAction)selectRadius;
+//반경 선택 액션
+
+@property (strong, nonatomic) IBOutlet UILabel *selectedRadius; // 선택된 반경 값 반환
 
 @end
