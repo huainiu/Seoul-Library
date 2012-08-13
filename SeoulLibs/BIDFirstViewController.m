@@ -12,6 +12,7 @@
 #import "SBJson.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "BIDRadiusSelectViewController.h"
 
 
 NSString *dataFlag1 = nil; //어떤 데이터를 받아온건지 구분해주는 flag
@@ -281,6 +282,12 @@ NSMutableArray *radiusResultArray = nil;
     }
     cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i", indexPath.row]];
     return cell;
+}
+
+- (IBAction)popupSetting {
+    BIDRadiusSelectViewController *modalSetting = [[BIDRadiusSelectViewController alloc]initWithNibName:@"BIDRadiusSelectViewController" bundle:nil];
+    [modalSetting setModalTransitionStyle:UIModalTransitionStylePartialCurl]; //모달뷰 전환효과
+    [self presentModalViewController:modalSetting animated:YES];
 }
     
 @end

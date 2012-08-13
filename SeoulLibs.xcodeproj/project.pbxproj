@@ -32,6 +32,8 @@
 		2EB3EAF115CBB5C300602A12 /* BIDMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EB3EAEF15CBB5C300602A12 /* BIDMapViewController.xib */; };
 		2EB3EAF515CBCA3600602A12 /* BIDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3EAF415CBCA3600602A12 /* BIDTableViewCell.m */; };
 		2EDEA5EA15D2A17600038F3D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EDEA5E915D2A17600038F3D /* Default.png */; };
+		2EEED92215D8F3EA003F4678 /* BIDRadiusSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEED92015D8F3EA003F4678 /* BIDRadiusSelectViewController.m */; };
+		2EEED92315D8F3EA003F4678 /* BIDRadiusSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEED92115D8F3EA003F4678 /* BIDRadiusSelectViewController.xib */; };
 		2EF6F5BB15C7C311007BA3EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5BA15C7C311007BA3EB /* UIKit.framework */; };
 		2EF6F5BD15C7C311007BA3EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5BC15C7C311007BA3EB /* Foundation.framework */; };
 		2EF6F5BF15C7C311007BA3EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5BE15C7C311007BA3EB /* CoreGraphics.framework */; };
@@ -100,6 +102,9 @@
 		2EB3EAF315CBCA3500602A12 /* BIDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDTableViewCell.h; sourceTree = "<group>"; };
 		2EB3EAF415CBCA3600602A12 /* BIDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDTableViewCell.m; sourceTree = "<group>"; };
 		2EDEA5E915D2A17600038F3D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		2EEED91F15D8F3EA003F4678 /* BIDRadiusSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDRadiusSelectViewController.h; sourceTree = "<group>"; };
+		2EEED92015D8F3EA003F4678 /* BIDRadiusSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDRadiusSelectViewController.m; sourceTree = "<group>"; };
+		2EEED92115D8F3EA003F4678 /* BIDRadiusSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BIDRadiusSelectViewController.xib; sourceTree = "<group>"; };
 		2EF6F5B615C7C311007BA3EB /* SeoulLibs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeoulLibs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF6F5BA15C7C311007BA3EB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2EF6F5BC15C7C311007BA3EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -272,6 +277,9 @@
 				2E3A666A15CCA557007A7F52 /* BIDLibInfoViewController.h */,
 				2E3A666B15CCA557007A7F52 /* BIDLibInfoViewController.m */,
 				2E3A666C15CCA557007A7F52 /* BIDLibInfoViewController.xib */,
+				2EEED91F15D8F3EA003F4678 /* BIDRadiusSelectViewController.h */,
+				2EEED92015D8F3EA003F4678 /* BIDRadiusSelectViewController.m */,
+				2EEED92115D8F3EA003F4678 /* BIDRadiusSelectViewController.xib */,
 			);
 			path = SeoulLibs;
 			sourceTree = "<group>";
@@ -356,6 +364,7 @@
 				2E1E511715CC0AAB007C4539 /* BID2ndDepthViewController.xib in Resources */,
 				2E3A666E15CCA557007A7F52 /* BIDLibInfoViewController.xib in Resources */,
 				2EDEA5EA15D2A17600038F3D /* Default.png in Resources */,
+				2EEED92315D8F3EA003F4678 /* BIDRadiusSelectViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +400,7 @@
 				2E3A665F15CC3362007A7F52 /* SBJsonStreamParser.m in Sources */,
 				2E3A666015CC3362007A7F52 /* SBJsonStreamParserAccumulator.m in Sources */,
 				2E3A666D15CCA557007A7F52 /* BIDLibInfoViewController.m in Sources */,
+				2EEED92215D8F3EA003F4678 /* BIDRadiusSelectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

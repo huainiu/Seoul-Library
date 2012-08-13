@@ -22,6 +22,9 @@
 - (void) getRadius:(NSString *)library_class longtitude:(NSString *)longtitude latitude:(NSString *)latitude radius:(NSString *)radius; //반경 검색
 - (void) parseRadius:(NSString *)jsonString; //반경 파싱
 
+- (IBAction)popupSetting;
+// 반경 버튼을 클릭하여 반경을 선택하는 모달뷰를 띄운다.
+
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 @property (strong, nonatomic) NSArray *listData;
 @property (nonatomic, retain) IBOutlet UITableView *resultTable;
