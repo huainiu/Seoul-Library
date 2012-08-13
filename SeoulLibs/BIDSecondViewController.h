@@ -21,6 +21,7 @@
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 
 - (IBAction)goToInnerDepth:(id)sender;
+// 구 선택하면 지도 뷰 컨트롤러로 이동
 - (IBAction)goSearch:(id)sender;
 
 @end

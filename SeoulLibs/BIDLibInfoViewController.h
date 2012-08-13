@@ -11,5 +11,12 @@
 @interface BIDLibInfoViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 {
 }
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextField *commentField;
+
+- (IBAction)textFieldDoneEdit; // 배경을 탭하면 키보드 사라지는 액션
+- (IBAction)goToMap; // 지도보기 누르면 지도 뷰 컨트롤러로 이동
+- (IBAction)goToFindWay; // 길찾기 누르면 지도 뷰 컨트롤러로 이동
+
 
 @end

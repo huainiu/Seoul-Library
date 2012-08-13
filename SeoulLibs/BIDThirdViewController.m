@@ -22,6 +22,7 @@ NSMutableArray *distSumArray = nil;
 NSMutableArray *distResultArray = nil;
 
 @implementation BIDThirdViewController
+@synthesize SearchBar;
 
 @synthesize activityIndicator;
 @synthesize listData;
@@ -39,10 +40,6 @@ NSMutableArray *distResultArray = nil;
         // Custom initialization
     }
     
-    
-    
-    
-    
     return self;
 }
 
@@ -58,6 +55,7 @@ NSMutableArray *distResultArray = nil;
 
 - (void)viewDidUnload
 {
+    [self setSearchBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -269,6 +267,10 @@ NSMutableArray *distResultArray = nil;
     NSUInteger row = [indexPath row];
     cell.textLabel.text = [listData objectAtIndex:row];
     return cell;
+}
+
+- (IBAction)backgroundTap {
+    [SearchBar resignFirstResponder];
 }
 
 @end
