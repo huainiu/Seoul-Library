@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
 
-@interface Tab3_2ndDepthViewController : UIViewController
+@interface Tab3_2ndDepthViewController : UITableViewController 
+{
+    UITableView *dongListTable;
+    NSArray *dongListData;
+    UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
+
+}
+
+@property (nonatomic, retain) IBOutlet UITableView *dongListTable;
+@property (strong, nonatomic) NSArray *dongListData;
+@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 
 @end

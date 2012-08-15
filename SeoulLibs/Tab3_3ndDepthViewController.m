@@ -7,16 +7,25 @@
 //
 
 #import "Tab3_3ndDepthViewController.h"
+#import "Tab3_2ndDepthViewController.h"
+#import "BIDThirdViewController.h"
+#import "BIDLibInfoViewController.h"
 
 @interface Tab3_3ndDepthViewController ()
 
 @end
 
+
+NSMutableDictionary *distResult = Nil;
+
+
 @implementation Tab3_3ndDepthViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize libListTable;
+
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
     }
@@ -26,7 +35,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.title = [NSString stringWithFormat:@"%@ %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"selectedGu"], [[NSUserDefaults standardUserDefaults] stringForKey:@"selectedDong"]];
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
@@ -39,6 +55,94 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    static NSString *cIdentifier = @"cell"; //셀 구분자 정의
+    UITableViewCell *cell = [libListTable dequeueReusableCellWithIdentifier:cIdentifier]; //식별자와 함꼐 재사용가능한 셀 만들기
+    if(cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cIdentifier];
+    }
+    
+    //    NSLog(@"lib%i : %@", indexPath.row, [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i", indexPath.row]]);
+    cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_name", indexPath.row]];
+    
+    // Configure the cell...
+    
+    return cell;
+}
+
+/*
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }   
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }   
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [libListTable deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectedLib"];
+    [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"tabFlag"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    BIDLibInfoViewController *libInfoViewController = [BIDLibInfoViewController alloc];
+    [self.navigationController pushViewController:libInfoViewController animated:YES];
+    
 }
 
 @end

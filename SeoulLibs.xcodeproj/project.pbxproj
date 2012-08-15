@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2946993215DB74D4005368B4 /* Tab3_2ndDepthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946993015DB74D4005368B4 /* Tab3_2ndDepthViewController.m */; };
+		2946993315DB74D4005368B4 /* Tab3_2ndDepthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2946993115DB74D4005368B4 /* Tab3_2ndDepthViewController.xib */; };
+		2946993715DB74ED005368B4 /* Tab3_3ndDepthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946993515DB74ED005368B4 /* Tab3_3ndDepthViewController.m */; };
+		2946993815DB74ED005368B4 /* Tab3_3ndDepthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2946993615DB74ED005368B4 /* Tab3_3ndDepthViewController.xib */; };
 		297ADF4515D192DE00B9C357 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5F715C7CA7A007BA3EB /* MapKit.framework */; };
 		297ADF4615D192E500B9C357 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF6F5F915C7CB81007BA3EB /* CoreLocation.framework */; };
 		297ADF9D15D92F0700B9C357 /* MapMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 297ADF9C15D92F0700B9C357 /* MapMarker.m */; };
-		2E1E511615CC0AAB007C4539 /* BID2ndDepthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1E511415CC0AAB007C4539 /* BID2ndDepthViewController.m */; };
-		2E1E511715CC0AAB007C4539 /* BID2ndDepthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1E511515CC0AAB007C4539 /* BID2ndDepthViewController.xib */; };
 		2E3A663315CC3228007A7F52 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3A663215CC3228007A7F52 /* ViewController.m */; };
 		2E3A663715CC3275007A7F52 /* HTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3A663615CC3275007A7F52 /* HTTPRequest.m */; };
 		2E3A663A15CC3290007A7F52 /* HTTPRequestPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3A663915CC3290007A7F52 /* HTTPRequestPost.m */; };
@@ -61,11 +63,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2946992F15DB74D4005368B4 /* Tab3_2ndDepthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tab3_2ndDepthViewController.h; sourceTree = "<group>"; };
+		2946993015DB74D4005368B4 /* Tab3_2ndDepthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tab3_2ndDepthViewController.m; sourceTree = "<group>"; };
+		2946993115DB74D4005368B4 /* Tab3_2ndDepthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tab3_2ndDepthViewController.xib; sourceTree = "<group>"; };
+		2946993415DB74ED005368B4 /* Tab3_3ndDepthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tab3_3ndDepthViewController.h; sourceTree = "<group>"; };
+		2946993515DB74ED005368B4 /* Tab3_3ndDepthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tab3_3ndDepthViewController.m; sourceTree = "<group>"; };
+		2946993615DB74ED005368B4 /* Tab3_3ndDepthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tab3_3ndDepthViewController.xib; sourceTree = "<group>"; };
 		297ADF9B15D92F0700B9C357 /* MapMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapMarker.h; sourceTree = "<group>"; };
 		297ADF9C15D92F0700B9C357 /* MapMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapMarker.m; sourceTree = "<group>"; };
-		2E1E511315CC0AAB007C4539 /* BID2ndDepthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BID2ndDepthViewController.h; sourceTree = "<group>"; };
-		2E1E511415CC0AAB007C4539 /* BID2ndDepthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BID2ndDepthViewController.m; sourceTree = "<group>"; };
-		2E1E511515CC0AAB007C4539 /* BID2ndDepthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BID2ndDepthViewController.xib; sourceTree = "<group>"; };
 		2E3A663115CC3228007A7F52 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2E3A663215CC3228007A7F52 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2E3A663515CC3275007A7F52 /* HTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequest.h; sourceTree = "<group>"; };
@@ -274,9 +279,12 @@
 				2EB3EAF315CBCA3500602A12 /* BIDTableViewCell.h */,
 				2EB3EAF415CBCA3600602A12 /* BIDTableViewCell.m */,
 				2EF6F5C115C7C311007BA3EB /* Supporting Files */,
-				2E1E511315CC0AAB007C4539 /* BID2ndDepthViewController.h */,
-				2E1E511415CC0AAB007C4539 /* BID2ndDepthViewController.m */,
-				2E1E511515CC0AAB007C4539 /* BID2ndDepthViewController.xib */,
+				2946992F15DB74D4005368B4 /* Tab3_2ndDepthViewController.h */,
+				2946993015DB74D4005368B4 /* Tab3_2ndDepthViewController.m */,
+				2946993115DB74D4005368B4 /* Tab3_2ndDepthViewController.xib */,
+				2946993415DB74ED005368B4 /* Tab3_3ndDepthViewController.h */,
+				2946993515DB74ED005368B4 /* Tab3_3ndDepthViewController.m */,
+				2946993615DB74ED005368B4 /* Tab3_3ndDepthViewController.xib */,
 				2EB3EAED15CBB5C300602A12 /* BIDMapViewController.h */,
 				2EB3EAEE15CBB5C300602A12 /* BIDMapViewController.m */,
 				2EB3EAEF15CBB5C300602A12 /* BIDMapViewController.xib */,
@@ -369,11 +377,12 @@
 				2EF6F5F515C7C600007BA3EB /* third.png in Resources */,
 				2EF6F5F615C7C600007BA3EB /* third@2x.png in Resources */,
 				2EB3EAF115CBB5C300602A12 /* BIDMapViewController.xib in Resources */,
-				2E1E511715CC0AAB007C4539 /* BID2ndDepthViewController.xib in Resources */,
 				2E3A666E15CCA557007A7F52 /* BIDLibInfoViewController.xib in Resources */,
 				2EDEA5EA15D2A17600038F3D /* Default.png in Resources */,
 				2EEED92315D8F3EA003F4678 /* BIDRadiusSelectViewController.xib in Resources */,
 				2E8FACD615D967E400F1073F /* LibImageSample.png in Resources */,
+				2946993315DB74D4005368B4 /* Tab3_2ndDepthViewController.xib in Resources */,
+				2946993815DB74ED005368B4 /* Tab3_3ndDepthViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +401,6 @@
 				2EF6F5ED15C7C3DC007BA3EB /* BIDFourthViewController.m in Sources */,
 				2EB3EAF015CBB5C300602A12 /* BIDMapViewController.m in Sources */,
 				2EB3EAF515CBCA3600602A12 /* BIDTableViewCell.m in Sources */,
-				2E1E511615CC0AAB007C4539 /* BID2ndDepthViewController.m in Sources */,
 				2E3A663315CC3228007A7F52 /* ViewController.m in Sources */,
 				2E3A663715CC3275007A7F52 /* HTTPRequest.m in Sources */,
 				2E3A663A15CC3290007A7F52 /* HTTPRequestPost.m in Sources */,
@@ -411,6 +419,8 @@
 				2E3A666D15CCA557007A7F52 /* BIDLibInfoViewController.m in Sources */,
 				2EEED92215D8F3EA003F4678 /* BIDRadiusSelectViewController.m in Sources */,
 				297ADF9D15D92F0700B9C357 /* MapMarker.m in Sources */,
+				2946993215DB74D4005368B4 /* Tab3_2ndDepthViewController.m in Sources */,
+				2946993715DB74ED005368B4 /* Tab3_3ndDepthViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

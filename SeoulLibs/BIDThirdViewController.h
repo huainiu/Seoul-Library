@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BID2ndDepthViewController.h"
+#import "Tab3_2ndDepthViewController.h"
 #import "ViewController.h"
 
 
@@ -15,7 +15,7 @@
 
 @interface BIDThirdViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
-
+    NSArray *listData;
 }
 
 @property (strong, nonatomic) NSArray *listData;

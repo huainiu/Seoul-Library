@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
 
-@interface Tab3_3ndDepthViewController : UIViewController
+@interface Tab3_3ndDepthViewController : UITableViewController 
+{
+    UITableView *libListTable;
+}
+
+@property (nonatomic, retain) IBOutlet UITableView *libListTable;
 
 @end

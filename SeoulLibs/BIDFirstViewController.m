@@ -199,7 +199,8 @@ NSMutableArray *radiusResultArray = nil;
         [radiusResultArray sortUsingDescriptors:[NSArray arrayWithObject:arraySorter]];
         
         for (int i=0; i < [radiusResultArray count]; i++) {
-            NSLog(@"i : %i", i);
+            NSLog(@"도서관 종류%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"lib_class"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"lib_class"] forKey:[NSString stringWithFormat:@"1_lib%i_class", i]];
             NSLog(@"도서관 id%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"] forKey:[NSString stringWithFormat:@"1_lib%i_id", i]];
             NSLog(@"도서관의 좌표%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"]);
