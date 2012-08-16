@@ -134,6 +134,8 @@ NSMutableArray *distResultArray = nil;
     
     NSUInteger row = [indexPath row];
     cell.textLabel.text = [dongListData objectAtIndex:row];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
     return cell;
 }
 

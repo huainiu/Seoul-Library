@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIDLibInfoViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+@interface BIDLibInfoViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
     UILabel *ratingLabel;
 }

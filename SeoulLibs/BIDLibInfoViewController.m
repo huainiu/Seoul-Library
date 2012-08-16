@@ -53,11 +53,20 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
     }
     
     //스크롤뷰 생성
-    _scrollView.frame = CGRectMake(0, 158, 320, 209);
+    _scrollView.frame = CGRectMake(0, 0, 320, 320);
     _scrollView.contentSize = CGSizeMake(320,800);
     
     // Do any additional setup after loading the view from its nib.
 }
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"scrollview 드래깅");
+    
+    //스크롤뷰 움직이면 키보드 사라지도록
+    [commentField resignFirstResponder];
+}
+
 
 
 - (void)viewDidAppear:(BOOL)animated {

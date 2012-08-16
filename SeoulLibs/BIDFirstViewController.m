@@ -29,11 +29,14 @@ NSMutableArray *radiusResultArray = nil;
 @end
 
 @implementation BIDFirstViewController
+@synthesize window;
 @synthesize listData;
 @synthesize resultTable;
 @synthesize locationManager;
 @synthesize startingPoint;
 @synthesize activityIndicator;
+@synthesize pickerViewSheet;
+@synthesize pickerView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,6 +61,9 @@ NSMutableArray *radiusResultArray = nil;
     [locationManager startUpdatingLocation];
     
     self.title = @"내 주변";
+    
+    radiusArray = [[NSArray alloc] initWithObjects:@"100m", @"300m", @"500m", @"1km", nil];
+
     
 }
 
@@ -282,16 +288,51 @@ NSMutableArray *radiusResultArray = nil;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", indexPath.row]];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
     return cell;
 }
 
 - (IBAction)popupSetting {
+    [pickerViewSheet addSubview:pickerView];
+    [pickerViewSheet showInView:window];
+
+
+    
+
+/*
     BIDRadiusSelectViewController *modalSetting = [[BIDRadiusSelectViewController alloc]initWithNibName:@"BIDRadiusSelectViewController" bundle:nil];
     [modalSetting setModalTransitionStyle:UIModalTransitionStyleCoverVertical]; //모달뷰 전환효과 - 위로 올리기
     //[modalSetting setModalTransitionStyle:UIModalTransitionStyleCrossDissolve]; //모달뷰 전환효과 - 디졸브
     //[modalSetting setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal]; //모달뷰 전환효과 - 옆으로 넘기기
     //[modalSetting setModalTransitionStyle:UIModalTransitionStylePartialCurl]; //모달뷰 전환효과 - 접어 올리기
     [self presentModalViewController:modalSetting animated:YES];
+ */
 }
     
+
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    // 피커뷰의 컴포넌트 개수 정의 (세로로 구분되는 항목) - 우리 앱은 1개라서 리턴값 1.
+    
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    // 컴포넌트 별 항목 수 정의 , 컴포넌트가 여러개일 경우 switch문을 이용해서 분기.
+    // 우리 어플은 컴포넌트가 1개이므로 걍 어레이의 데이터 행 개수와 동일
+    return  [radiusArray count];
+}
+
+#pragma mark - UIPickerViewDelegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    //각 행에 출력하는 이름 - 반경 어레이에서 가져옴
+    return [radiusArray objectAtIndex:row];
+}
+
+
+
+
 @end

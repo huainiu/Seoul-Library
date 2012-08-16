@@ -67,6 +67,9 @@
     [[NSUserDefaults standardUserDefaults] setValue:[listData objectAtIndex:indexPath.row] forKey:@"selectedGu"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    [SearchBar resignFirstResponder];
+    
+    
     //2ndview띄우기 코드 넣을곳
     //해당 구의 도서관 목록 띄워주는 페이지 호출
     Tab3_2ndDepthViewController *dongListViewController = [Tab3_2ndDepthViewController alloc];
@@ -91,11 +94,13 @@
     
     NSUInteger row = [indexPath row];
     cell.textLabel.text = [listData objectAtIndex:row];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
 - (IBAction)backgroundTap {
     [SearchBar resignFirstResponder];
 }
+
 
 @end

@@ -10,13 +10,17 @@
 #import <CoreLocation/CoreLocation.h>
 #import "BIDLibInfoViewController.h"
 
-@interface BIDFirstViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
+@interface BIDFirstViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate >
 {
+    UIView *window;
     UITableView *resultTable;
     CLLocationManager *locationManager;
     CLLocation *startingPoint;
     UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
-
+    NSArray *radiusArray; //반경 목록 어레이
+    UIPickerView *pickerView;
+    UIActionSheet *pickerViewSheet; //반경검색 피커뷰 나오는거
+    
 }
 
 - (void) getRadius:(NSString *)library_class longtitude:(NSString *)longtitude latitude:(NSString *)latitude radius:(NSString *)radius; //반경 검색
@@ -25,11 +29,17 @@
 - (IBAction)popupSetting;
 // 반경 버튼을 클릭하여 반경을 선택하는 모달뷰를 띄운다.
 
+- (IBAction)selectRadius;
+//반경 선택 액션
+
+@property (strong, nonatomic) UIView *window;
+
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 @property (strong, nonatomic) NSArray *listData;
 @property (nonatomic, retain) IBOutlet UITableView *resultTable;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) CLLocation *startingPoint;
-
+@property (nonatomic, retain) UIPickerView *pickerView;
+@property (nonatomic, retain) UIActionSheet *pickerViewSheet;
 
 @end
