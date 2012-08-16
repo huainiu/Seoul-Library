@@ -34,6 +34,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *resultTable;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) CLLocation *startingPoint;
+@property (nonatomic, retain) UIActionSheet *myActionSheet;
 
 
 
