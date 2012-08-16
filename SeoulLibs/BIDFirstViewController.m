@@ -29,14 +29,13 @@ NSMutableArray *radiusResultArray = nil;
 @end
 
 @implementation BIDFirstViewController
-@synthesize window;
 @synthesize listData;
 @synthesize resultTable;
 @synthesize locationManager;
 @synthesize startingPoint;
 @synthesize activityIndicator;
-@synthesize pickerViewSheet;
-@synthesize pickerView;
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,7 +61,7 @@ NSMutableArray *radiusResultArray = nil;
     
     self.title = @"내 주변";
     
-    radiusArray = [[NSArray alloc] initWithObjects:@"100m", @"300m", @"500m", @"1km", nil];
+    radiusArray = [[NSArray alloc] initWithObjects:@"100m", @"300m", @"500m", @"1km", @"3km", nil];
 
     
 }
@@ -294,13 +293,22 @@ NSMutableArray *radiusResultArray = nil;
 }
 
 - (IBAction)popupSetting {
-    [pickerViewSheet addSubview:pickerView];
-    [pickerViewSheet showInView:window];
-
-
+    
+    UIActionSheet *myActionSheet;
+    myActionSheet = [[UIActionSheet alloc]initWithTitle:@"제목"
+                                               delegate:self
+                                      cancelButtonTitle:@"닫기"
+                                 destructiveButtonTitle:nil
+                                       otherButtonTitles:nil];
+    [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
     
 
+    
+    UIView *keyview = [[[[UIApplication sharedApplication] keyWindow]subviews]objectAtIndex:0]; // 최상단 뷰
+    [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
 /*
+    반경선택 모달뷰로 구현한 부분
+ 
     BIDRadiusSelectViewController *modalSetting = [[BIDRadiusSelectViewController alloc]initWithNibName:@"BIDRadiusSelectViewController" bundle:nil];
     [modalSetting setModalTransitionStyle:UIModalTransitionStyleCoverVertical]; //모달뷰 전환효과 - 위로 올리기
     //[modalSetting setModalTransitionStyle:UIModalTransitionStyleCrossDissolve]; //모달뷰 전환효과 - 디졸브
@@ -309,6 +317,8 @@ NSMutableArray *radiusResultArray = nil;
     [self presentModalViewController:modalSetting animated:YES];
  */
 }
+
+
     
 
 #pragma mark - UIPickerViewDataSource

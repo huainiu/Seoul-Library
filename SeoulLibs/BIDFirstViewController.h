@@ -12,14 +12,11 @@
 
 @interface BIDFirstViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate >
 {
-    UIView *window;
     UITableView *resultTable;
     CLLocationManager *locationManager;
     CLLocation *startingPoint;
     UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
     NSArray *radiusArray; //반경 목록 어레이
-    UIPickerView *pickerView;
-    UIActionSheet *pickerViewSheet; //반경검색 피커뷰 나오는거
     
 }
 
@@ -32,14 +29,14 @@
 - (IBAction)selectRadius;
 //반경 선택 액션
 
-@property (strong, nonatomic) UIView *window;
-
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 @property (strong, nonatomic) NSArray *listData;
 @property (nonatomic, retain) IBOutlet UITableView *resultTable;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) CLLocation *startingPoint;
-@property (nonatomic, retain) UIPickerView *pickerView;
-@property (nonatomic, retain) UIActionSheet *pickerViewSheet;
+
+
+
+
 
 @end
