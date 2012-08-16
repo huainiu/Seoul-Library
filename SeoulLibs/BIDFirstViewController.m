@@ -295,17 +295,25 @@ NSMutableArray *radiusResultArray = nil;
 - (IBAction)popupSetting {
     
     UIActionSheet *myActionSheet;
-    myActionSheet = [[UIActionSheet alloc]initWithTitle:@"제목"
+    myActionSheet = [[UIActionSheet alloc]initWithTitle:nil
                                                delegate:self
-                                      cancelButtonTitle:@"닫기"
+                                      cancelButtonTitle:nil
                                  destructiveButtonTitle:nil
                                        otherButtonTitles:nil];
     [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
-    
 
+    UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    radiusPickerView.delegate = self;
+    radiusPickerView.showsSelectionIndicator = YES;
+    
+    [myActionSheet addSubview:radiusPickerView]; //액션시트에 피커뷰 띄우기
     
     UIView *keyview = [[[[UIApplication sharedApplication] keyWindow]subviews]objectAtIndex:0]; // 최상단 뷰
     [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
+    
+    [myActionSheet setBounds:CGRectMake(0, 0, 320, 410)];
+    
+    
 /*
     반경선택 모달뷰로 구현한 부분
  
