@@ -10,29 +10,21 @@
 
 @interface BIDLibInfoViewController : UIViewController <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
-<<<<<<< HEAD
     UILabel *ratingLabel;
+    UILabel *viewRate;
+
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (nonatomic, retain) IBOutlet UILabel *ratingLabel;
-=======
-    UILabel *viewRate;
-}
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UITextField *commentField;
 @property (nonatomic, retain) IBOutlet UILabel *viewRate;
->>>>>>> 도서관정보페이지 약간수정
 
 - (IBAction)textFieldDoneEdit; // 배경을 탭하면 키보드 사라지는 액션
 - (IBAction)goToMap; // 지도보기 누르면 지도 뷰 컨트롤러로 이동
 - (IBAction)goToFindWay; // 길찾기 누르면 지도 뷰 컨트롤러로 이동
 
-<<<<<<< HEAD
 - (void) getRating:(NSString *)library_class idx:(NSString *)idx; //평점 가져오기
 - (void) parseRating:(NSString *)jsonString; //평점 파싱
-
-=======
 - (void) getComment; //댓글 가져오기
 - (void) updateComment; //댓글 업데이트
 - (void) getRating:(NSString *)library_class idx:(NSString *)idx; //평점 가져오기
@@ -42,6 +34,5 @@
 - (void) parseUpdateComment:(NSString *)jsonString; //댓글 업데이트 후 받아온 데이터 파싱
 - (void) parseRating:(NSString *)jsonString; //평점 파싱
 - (void) parseUpdateRating:(NSString *)jsonString; //평점 업데이트 후 받아온 데이터 파싱
->>>>>>> 도서관정보페이지 약간수정
 
 @end

@@ -276,7 +276,7 @@ NSMutableArray *radiusResultArray = nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"];
+    return 30;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -292,14 +292,11 @@ NSMutableArray *radiusResultArray = nil;
     return cell;
 }
 
+
 - (IBAction)popupSetting {
     
     UIActionSheet *myActionSheet;
-    myActionSheet = [[UIActionSheet alloc]initWithTitle:nil
-                                               delegate:self
-                                      cancelButtonTitle:nil
-                                 destructiveButtonTitle:nil
-                                       otherButtonTitles:nil];
+    myActionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
 
     UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -312,18 +309,7 @@ NSMutableArray *radiusResultArray = nil;
     [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
     
     [myActionSheet setBounds:CGRectMake(0, 0, 320, 410)];
-        
     
-/*
-    반경선택 모달뷰로 구현한 부분
- 
-    BIDRadiusSelectViewController *modalSetting = [[BIDRadiusSelectViewController alloc]initWithNibName:@"BIDRadiusSelectViewController" bundle:nil];
-    [modalSetting setModalTransitionStyle:UIModalTransitionStyleCoverVertical]; //모달뷰 전환효과 - 위로 올리기
-    //[modalSetting setModalTransitionStyle:UIModalTransitionStyleCrossDissolve]; //모달뷰 전환효과 - 디졸브
-    //[modalSetting setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal]; //모달뷰 전환효과 - 옆으로 넘기기
-    //[modalSetting setModalTransitionStyle:UIModalTransitionStylePartialCurl]; //모달뷰 전환효과 - 접어 올리기
-    [self presentModalViewController:modalSetting animated:YES];
- */
 }
 
 
