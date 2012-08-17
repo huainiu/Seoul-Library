@@ -64,7 +64,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+<<<<<<< HEAD
     [[NSUserDefaults standardUserDefaults] setValue:[listData objectAtIndex:indexPath.row] forKey:@"selectedGu"];
+=======
+    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectedLib"];
+    [[NSUserDefaults standardUserDefaults] setValue:[listData objectAtIndex:indexPath.row] forKey:@"guName"];
+>>>>>>> 도서관정보페이지 약간수정
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [SearchBar resignFirstResponder];
