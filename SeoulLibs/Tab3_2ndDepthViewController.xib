@@ -83,11 +83,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">libListTable</string>
+						<string key="label">dongListTable</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="418084232"/>
 					</object>
-					<int key="connectionID">7</int>
+					<int key="connectionID">8</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -152,7 +152,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">7</int>
+			<int key="maxID">8</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -160,13 +160,13 @@
 					<string key="className">Tab3_2ndDepthViewController</string>
 					<string key="superclassName">UITableViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">libListTable</string>
+						<string key="NS.key.0">dongListTable</string>
 						<string key="NS.object.0">UITableView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">libListTable</string>
+						<string key="NS.key.0">dongListTable</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">libListTable</string>
+							<string key="name">dongListTable</string>
 							<string key="candidateClassName">UITableView</string>
 						</object>
 					</object>

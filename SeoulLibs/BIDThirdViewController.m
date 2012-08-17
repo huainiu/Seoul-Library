@@ -92,7 +92,7 @@ NSMutableArray *searchResultArray = nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [guTable deselectRowAtIndexPath:indexPath animated:YES];
     [[NSUserDefaults standardUserDefaults] setValue:[listData objectAtIndex:indexPath.row] forKey:@"selectedGu"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     

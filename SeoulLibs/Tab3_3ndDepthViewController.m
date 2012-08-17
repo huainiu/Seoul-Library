@@ -134,11 +134,12 @@ NSMutableDictionary *distResult = Nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [libListTable deselectRowAtIndexPath:indexPath animated:YES];
     
     [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectedLib"];
     [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"tabFlag"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [libListTable deselectRowAtIndexPath:indexPath animated:YES];
     
     BIDLibInfoViewController *libInfoViewController = [BIDLibInfoViewController alloc];
     [self.navigationController pushViewController:libInfoViewController animated:YES];

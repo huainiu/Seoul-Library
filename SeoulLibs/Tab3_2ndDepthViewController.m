@@ -143,9 +143,7 @@ NSMutableArray *distResultArray = nil;
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [dongListTable deselectRowAtIndexPath:indexPath animated:YES];
-    
+{    
     [[NSUserDefaults standardUserDefaults] setValue:[dongListData objectAtIndex:indexPath.row] forKey:@"selectedDong"];
     [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"tabFlag"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -161,6 +159,8 @@ NSMutableArray *distResultArray = nil;
     //Activity Indicator 활성화.
     activityIndicator.hidden= FALSE;
     [activityIndicator startAnimating];
+    
+    [dongListTable deselectRowAtIndexPath:indexPath animated:YES];
     
     if ( [[[NSUserDefaults standardUserDefaults] stringForKey:@"selectedDong"] isEqualToString:@"전체보기"] ) { //전체보기를 선택했을 경우에는 동이름 없이, 구 이름으로 행정구역 검색
         [self getDist:@"large" gu:[[NSUserDefaults standardUserDefaults] stringForKey:@"selectedGu"] dong:nil];
