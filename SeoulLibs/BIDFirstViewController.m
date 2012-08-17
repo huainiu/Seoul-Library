@@ -29,11 +29,13 @@ NSMutableArray *radiusResultArray = nil;
 @end
 
 @implementation BIDFirstViewController
+
 @synthesize listData;
 @synthesize resultTable;
 @synthesize locationManager;
 @synthesize startingPoint;
 @synthesize activityIndicator;
+@synthesize myActionSheet;
 
 
 
@@ -49,26 +51,28 @@ NSMutableArray *radiusResultArray = nil;
 }
 							
 - (void)viewDidLoad
-{
+{    
     NSLog(@"FirstViewController viewDidLoad 메서드 실행");
     
     [super viewDidLoad];
+    self.title = @"내 주변";
+    radiusArray = [[NSArray alloc] initWithObjects:@"100m", @"300m", @"500m", @"1km", @"3km", nil];
+}
+
+
+- (void) viewDidAppear:(BOOL)animated {
+    NSLog(@"FirstViewController viewDidAppear 메서드 실행");
     
     self.locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
-    
-    self.title = @"내 주변";
-    
-    radiusArray = [[NSArray alloc] initWithObjects:@"100m", @"300m", @"500m", @"1km", @"3km", nil];
-
-    
 }
 
-- (void)viewDidAppear {    
-    NSLog(@"FirstViewController viewDidAppear 메서드 실행");
 
+//새로고침 버튼 클릭
+- (IBAction)refresh {
+    [self viewDidAppear:NO];
 }
 
 
@@ -200,7 +204,7 @@ NSMutableArray *radiusResultArray = nil;
         radiusResultArray = radiusSumArray;
     
         //정렬
-        NSSortDescriptor *arraySorter = [[NSSortDescriptor alloc] initWithKey:@"fclty_nm" ascending:YES];
+        NSSortDescriptor *arraySorter = [[NSSortDescriptor alloc] initWithKey:@"st_distance" ascending:YES];
         [radiusResultArray sortUsingDescriptors:[NSArray arrayWithObject:arraySorter]];
         
         for (int i=0; i < [radiusResultArray count]; i++) {
@@ -208,6 +212,8 @@ NSMutableArray *radiusResultArray = nil;
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"lib_class"] forKey:[NSString stringWithFormat:@"1_lib%i_class", i]];
             NSLog(@"도서관 id%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"] forKey:[NSString stringWithFormat:@"1_lib%i_id", i]];
+            NSLog(@"도서관 distance%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"]);
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"] forKey:[NSString stringWithFormat:@"1_lib%i_distance", i]];
             NSLog(@"도서관의 좌표%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"] forKey:[NSString stringWithFormat:@"1_lib%i_point", i]];
             NSLog(@"도서관 이름%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"]);
@@ -240,7 +246,8 @@ NSMutableArray *radiusResultArray = nil;
             [resultTable reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
             
             [resultTable endUpdates];
-
+            
+            getRadiusDataFlag = 0;
         }
     }
     
@@ -277,6 +284,7 @@ NSMutableArray *radiusResultArray = nil;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 30;
+    //테이블 row 개수를 데이터 받아온 시점에서 다시 세팅할 수 있는지 확인 필요. 우선은 넉넉하게 잡아둠.
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -287,6 +295,7 @@ NSMutableArray *radiusResultArray = nil;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", indexPath.row]];
+    cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_distance", indexPath.row]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     return cell;

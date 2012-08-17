@@ -59,9 +59,6 @@ NSMutableArray *distResultArray2 = nil;
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (IBAction)showUserLocation{
-    
-}
 
 - (IBAction)goToInnerDepth:(id)sender{
     BIDMapViewController *mapview = [BIDMapViewController new];
@@ -189,25 +186,6 @@ NSMutableArray *distResultArray2 = nil;
             [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:[NSString stringWithFormat:@"2_lib%i_latitude", i]];
             NSLog(@"longtitude : %@, latitude : %@", longtitude, latitude);
             
-            
-                                       
-/*            
-            //dirkey, ukey 파싱
-            NSString *pushMessage = [NSString stringWithFormat:@"%@", userInfo];
-            
-            NSArray *dirkeyTempArray1 = [pushMessage componentsSeparatedByString:@"dirkey="];
-            NSString *dirkeyTempString1 = ((NSString *)[dirkeyTempArray1 objectAtIndex:1]);
-            NSArray *dirkeyTempArray2 = [dirkeyTempString1 componentsSeparatedByString:@"\""];
-            NSString *dirKey = ((NSString *)[dirkeyTempArray2 objectAtIndex:0]);
-            
-            NSArray *ukeyTempArray1 = [pushMessage componentsSeparatedByString:@"ukey="];
-            NSString *ukeyTempString1 = ((NSString *)[ukeyTempArray1 objectAtIndex:1]);
-            NSArray *ukeyTempArray2 = [ukeyTempString1 componentsSeparatedByString:@"\""];
-            NSString *uKey = ((NSString *)[ukeyTempArray2 objectAtIndex:0]);
-*/
-            
-            
-            
             NSLog(@"도서관 이름%i: %@", i, [[distResultArray2 objectAtIndex:i] valueForKey:@"fclty_nm"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray2 objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"2_lib%i_name", i]];
             NSLog(@"도서관 구분%i: %@", i, [[distResultArray2 objectAtIndex:i] valueForKey:@"fly_gbn"]);
@@ -226,6 +204,7 @@ NSMutableArray *distResultArray2 = nil;
             
             [[NSUserDefaults standardUserDefaults] synchronize];
             
+            getDataFlag2 = 0;            
         }
         //Activity Indicator 비활성화.
         [activityIndicator stopAnimating];     
@@ -235,14 +214,6 @@ NSMutableArray *distResultArray2 = nil;
         BIDMapViewController *mapview = [BIDMapViewController new];
         [self.navigationController pushViewController:mapview animated:YES];
     }
-    
-    //    NSMutableDictionary *distResult = [NSMutableDictionary dictionaryWithCapacity:total_rows];
-    //    for (int i=0; i < [rowsArray count]; i++) {
-    //        [distResult setObject:[[rowsArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"lib%i", i]];
-    //    }
-    
-    //    [[NSUserDefaults standardUserDefaults] setValue:distResult forKey:@"distResult"];
-    //    [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
 

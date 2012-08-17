@@ -277,8 +277,10 @@ NSMutableArray *distResultArray = nil;
             [[NSUserDefaults standardUserDefaults] setValue:[[distResultArray objectAtIndex:i] valueForKey:@"opnng_de"] forKey:[NSString stringWithFormat:@"3_lib%i_opendate", i]];
             
             [[NSUserDefaults standardUserDefaults] synchronize];
-            
+
+            getDataFlag = 0;
         }
+        
         //Activity Indicator 비활성화.
         [activityIndicator stopAnimating];     
         activityIndicator.hidden= TRUE;

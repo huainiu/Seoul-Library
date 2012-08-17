@@ -17,6 +17,7 @@
     CLLocation *startingPoint;
     UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
     NSArray *radiusArray; //반경 목록 어레이
+    NSArray *listData;
     
 }
 
@@ -28,6 +29,9 @@
 
 - (IBAction)selectRadius;
 //반경 선택 액션
+
+- (IBAction)refresh;
+//새로고침 메서드
 
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
 @property (strong, nonatomic) NSArray *listData;
