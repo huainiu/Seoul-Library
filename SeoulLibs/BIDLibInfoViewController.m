@@ -25,8 +25,7 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
 @synthesize scrollView = _scrollView;
 @synthesize commentField;
 @synthesize ratingLabel;
-
-@synthesize viewRate;
+@synthesize ratingText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,16 +42,10 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"tabFlag"]) {
         case 1:
             self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
-
-            [self getRating:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_class", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] idx:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_id", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]]];
-
-
             break;
             
         case 3:
             self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
-
-            [self getRating:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_class", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] idx:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_id", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]]];
             
             break;
     }
@@ -76,16 +69,14 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
 
 - (void)viewDidAppear:(BOOL)animated {
     
+    NSLog(@"LibInfoViewController - viewDidAppear 메서드 실행");
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"tabFlag"]) {
         case 1:
-            self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
-            
-//            [self getRating:<#(NSString *)#> idx:[[NSUserDefaults standard
-
+            [self getRating:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_class", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] idx:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_id", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]]];
             break;
             
         case 3:
-            self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
+            [self getRating:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_class", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] idx:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_id", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]]];
 
             break;
     }
@@ -123,7 +114,7 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
     NSMutableDictionary* rating = [ parser objectWithString: jsonString ];    
     
     NSLog(@"요청처리시간: %@", [rating valueForKey:@"time"]);
-    NSLog(@"반경검색 결과의 수: %@", [rating valueForKey:@"total_rows"]);
+    NSLog(@"결과의 수: %@", [rating valueForKey:@"total_rows"]);
     
     NSArray *rowsArray = [ rating objectForKey:@"rows"];
     
@@ -163,7 +154,7 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
         [self parseRating:jsonString];
     }
     else if ([libInfoDataFlag isEqualToString:@"updateRating"]) {
-        //        [self parseUpdateRating:jsonString];
+        [self parseUpdateRating:jsonString];
 
     }
     else {
@@ -171,6 +162,47 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
     }
 }
 
+
+- (IBAction)rate:(id)sender
+{
+    [self updateRating:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_class", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] idx:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_id", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] rating:ratingText.text uuid:[[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"] ];
+}
+
+
+//평점 업데이트. POST
+- (void) updateRating:(NSString *)library idx:(NSString *)idx rating:(NSString *)rating uuid:(NSString *)uuid {
+    NSLog(@"updateRating 메서드 실행");
+    
+    libInfoDataFlag = @"updateRating";
+    
+    //접속할 주소 설정
+    NSString *url = [[NSString alloc] initWithFormat:@"http://seoullibrary.herokuapp.com/rating/update"];
+    
+    // HTTP Request 인스턴스 생성
+    HTTPRequestPost *httpRequestPost = [[HTTPRequestPost alloc] init];
+    
+    // POST로 전송할 데이터 설정
+    NSDictionary *bodyObject = [NSDictionary dictionaryWithObjectsAndKeys:library,@"library",idx, @"idx", rating, @"rating", uuid, @"uuid", nil];
+    
+    // 통신 완료 후 호출할 델리게이트 셀렉터 설정
+    [httpRequestPost setDelegate:self selector:@selector(didReceiveFinished:)];
+    
+    // 페이지 호출
+    [httpRequestPost requestUrl:url bodyObject:bodyObject];
+}
+
+
+//평점 업데이트 후 받아온 데이터 파싱
+- (void) parseUpdateRating:(NSString *)jsonString {
+    NSLog(@"parseUpdateRating 메서드 실행");
+    SBJsonParser* parser = [ [ SBJsonParser alloc ] init ];
+    
+    NSMutableDictionary* ratingResult = [ parser objectWithString: jsonString ];    
+    
+    NSLog(@"요청처리시간: %@", [ratingResult valueForKey:@"time"]);
+    NSLog(@"평점 업데이트 결과: %@", [ratingResult valueForKey:@"result"]);    
+    [self viewDidAppear:NO];
+}
 
 
 

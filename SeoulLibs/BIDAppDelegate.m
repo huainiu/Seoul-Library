@@ -40,6 +40,19 @@
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:myNaviViewController3, myNaviViewController1, myNaviViewController2, viewController4, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
+    
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"firstLaunch"] != 1) {
+        CFUUIDRef uuidRef = CFUUIDCreate(NULL);
+        CFStringRef uuidStringRef = CFUUIDCreateString(NULL, uuidRef);
+        [[NSUserDefaults standardUserDefaults] setValue:(__bridge NSString *)uuidStringRef forKey:@"uuid"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    NSLog(@"uuid : %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"]);
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"firstLaunch"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return YES;
 }
 
