@@ -18,6 +18,8 @@
     UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
     NSArray *radiusArray; //반경 목록 어레이
     NSArray *listData;
+    __weak IBOutlet UILabel *selectedRadius;
+    __weak IBOutlet UIButton *radiusButton;
     
 }
 
@@ -39,7 +41,8 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) CLLocation *startingPoint;
 @property (nonatomic, retain) UIActionSheet *myActionSheet;
-
+@property (weak, nonatomic) IBOutlet UILabel *selectedRadius; //선택된 반경값
+@property (weak, nonatomic) IBOutlet UIButton *radiusButton;
 
 
 

@@ -29,7 +29,8 @@ NSMutableArray *radiusResultArray = nil;
 @end
 
 @implementation BIDFirstViewController
-
+@synthesize radiusButton;//반경 선택 버튼
+@synthesize selectedRadius;//반경값 저장하는 꼼수 라벨
 @synthesize listData;
 @synthesize resultTable;
 @synthesize locationManager;
@@ -56,7 +57,10 @@ NSMutableArray *radiusResultArray = nil;
     
     [super viewDidLoad];
     self.title = @"내 주변";
+    [selectedRadius setHidden:TRUE]; //숨겨둔 꼼수 라벨
     radiusArray = [[NSArray alloc] initWithObjects:@"100m", @"300m", @"500m", @"1km", @"3km", nil];
+    [self.radiusButton setTitle:@"100m" forState:UIControlStateNormal]; //반경 버튼 초기값 100m
+    
 }
 
 
@@ -272,6 +276,11 @@ NSMutableArray *radiusResultArray = nil;
 
 - (void)viewDidUnload
 {
+    [self setSelectedRadius:nil];
+    radiusButton = nil;
+    [self setRadiusButton:nil];
+    radiusButton = nil;
+    selectedRadius = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -369,6 +378,13 @@ NSMutableArray *radiusResultArray = nil;
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     //각 행에 출력하는 이름 - 반경 어레이에서 가져옴
     return [radiusArray objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    //피커에서 선택한 반경을 버튼 타이틀로 반영
+    NSLog(@"value:%i",row);
+    selectedRadius.text = [radiusArray objectAtIndex:row];//꼼수 라벨에 선택된 값 표시
+    [self.radiusButton setTitle:selectedRadius.text forState:UIControlStateNormal];//반경 버튼 타이틀을 꼼수 라벨에 저장된 텍스트 값으로 변경 
 }
 
 
