@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		292090FD15E28F3B000BA291 /* BIDFirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292090FC15E28F3B000BA291 /* BIDFirstViewController.xib */; };
 		2946993215DB74D4005368B4 /* Tab3_2ndDepthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946993015DB74D4005368B4 /* Tab3_2ndDepthViewController.m */; };
 		2946993315DB74D4005368B4 /* Tab3_2ndDepthViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2946993115DB74D4005368B4 /* Tab3_2ndDepthViewController.xib */; };
 		2946993715DB74ED005368B4 /* Tab3_3ndDepthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946993515DB74ED005368B4 /* Tab3_3ndDepthViewController.m */; };
@@ -62,6 +63,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		292090FC15E28F3B000BA291 /* BIDFirstViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BIDFirstViewController.xib; sourceTree = "<group>"; };
 		2946992F15DB74D4005368B4 /* Tab3_2ndDepthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tab3_2ndDepthViewController.h; sourceTree = "<group>"; };
 		2946993015DB74D4005368B4 /* Tab3_2ndDepthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tab3_2ndDepthViewController.m; sourceTree = "<group>"; };
 		2946993115DB74D4005368B4 /* Tab3_2ndDepthViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tab3_2ndDepthViewController.xib; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				2EF6F5CA15C7C311007BA3EB /* BIDAppDelegate.m */,
 				2EF6F5CC15C7C311007BA3EB /* BIDFirstViewController.h */,
 				2EF6F5CD15C7C311007BA3EB /* BIDFirstViewController.m */,
+				292090FC15E28F3B000BA291 /* BIDFirstViewController.xib */,
 				2EF6F5D315C7C311007BA3EB /* BIDSecondViewController.h */,
 				2EF6F5D415C7C311007BA3EB /* BIDSecondViewController.m */,
 				2EF6F5DD15C7C311007BA3EB /* BIDSecondViewController.xib */,
@@ -379,6 +382,7 @@
 				2E8FACD615D967E400F1073F /* LibImageSample.png in Resources */,
 				2946993315DB74D4005368B4 /* Tab3_2ndDepthViewController.xib in Resources */,
 				2946993815DB74ED005368B4 /* Tab3_3ndDepthViewController.xib in Resources */,
+				292090FD15E28F3B000BA291 /* BIDFirstViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

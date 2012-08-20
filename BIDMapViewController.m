@@ -50,10 +50,27 @@
     MKCoordinateRegion region; //표시할 지도의 부분
     MKCoordinateSpan span; //보여줄 지도가 처리할 넓이. 숫자가 작을수록 확대되어 보임
     
-    span.longitudeDelta = 0.05;
-    span.latitudeDelta = 0.05;
     
-    region.center = CLLocationCoordinate2DMake([[[NSUserDefaults standardUserDefaults] stringForKey:@"2_lib1_latitude"] doubleValue], [[[NSUserDefaults standardUserDefaults] stringForKey:@"2_lib1_longtitude"] doubleValue]); //센터 위치 (위도,경도)
+    double sumLatitude = 0;
+    double averageLatitude = 0;
+    double sumLongtitude = 0;
+    double averageLongtitude = 0;
+    //지도의 센터를 설정해주기 위한 같잖은 알고리즘
+    for(int i=0; i<[[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"]; i++) {
+        
+        sumLatitude = sumLatitude + [[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_latitude", i]] doubleValue];
+        sumLongtitude = sumLongtitude + [[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_longtitude", i]] doubleValue];
+    }
+
+    averageLatitude = sumLatitude / ( [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"] );
+    averageLongtitude = sumLongtitude / ( [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"] );
+    NSLog(@"averageLatitude : %f", averageLatitude);
+    NSLog(@"averageLongtitude : %f", averageLongtitude);
+    
+    span.longitudeDelta = 0.058;
+    span.latitudeDelta = 0.058;
+    
+    region.center = CLLocationCoordinate2DMake(averageLatitude, averageLongtitude); //센터 위치 (위도,경도)
     region.span = span;
     
     [myMapView setRegion:region animated:YES];
@@ -109,7 +126,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
     MapMarker *annotation = view.annotation;
     int i = annotation.libNumber;
     
-    //2_lib%i_name
     [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_class", i]] forKey:@"currentLibInfo_class"];
     [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_id", i]] forKey:@"currentLibInfo_id"];
     [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_distance", i]] forKey:@"currentLibInfo_distance"];
