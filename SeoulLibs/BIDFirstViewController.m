@@ -342,29 +342,26 @@ NSMutableArray *radiusResultArray = nil;
     UIActionSheet *myActionSheet;
     myActionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
-<<<<<<< HEAD
+
 
     UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 10, 0, 0)];
-=======
+
     
-    UIPickerView *radiusPickerView = [[UIPickerView alloc] init];
+//    UIPickerView *radiusPickerView = [[UIPickerView alloc] init];
 //    UIPickerView *radiusPickerView = [[UIPickerView alloc] init];
 //    [radiusPickerView setFrame:CGRectMake(0.0f, keyview.frame.size.height - radiusPickerView.frame.size.height, keyview.frame.size.height, radiusPickerView.frame.size.height)]; //피커뷰 위치 지정
     
->>>>>>> 맵뷰에서 핀 선택시 해당 도서관 정보페이지로 이동 구현
+
     radiusPickerView.delegate = self;
     radiusPickerView.showsSelectionIndicator = YES;
     
 //    [keyview addSubview:radiusPickerView];
     
     
-<<<<<<< HEAD
     [myActionSheet setBounds:CGRectMake(0, 0, 320, 424)];//바닥으로부터 액션시트의 위치(0,0), 액션시트의 크기(320,424)
-=======
     [myActionSheet addSubview:radiusPickerView]; //액션시트에 피커뷰 띄우기
     [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
     [myActionSheet setBounds:CGRectMake(0, 0, 320, 410)]; //액션시트 위치 지정
->>>>>>> 맵뷰에서 핀 선택시 해당 도서관 정보페이지로 이동 구현
     
     //툴바
     actionSheetToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -30, 320, 44)]; //액션시트 프레임 기준으로 툴바의 위치, 크기

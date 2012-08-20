@@ -50,7 +50,6 @@
 		2EF6F5D515C7C311007BA3EB /* BIDSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF6F5D415C7C311007BA3EB /* BIDSecondViewController.m */; };
 		2EF6F5D715C7C311007BA3EB /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5D615C7C311007BA3EB /* second.png */; };
 		2EF6F5D915C7C311007BA3EB /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5D815C7C311007BA3EB /* second@2x.png */; };
-		2EF6F5DC15C7C311007BA3EB /* BIDFirstViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5DA15C7C311007BA3EB /* BIDFirstViewController.xib */; };
 		2EF6F5DF15C7C311007BA3EB /* BIDSecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5DD15C7C311007BA3EB /* BIDSecondViewController.xib */; };
 		2EF6F5E815C7C37B007BA3EB /* BIDThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF6F5E615C7C37B007BA3EB /* BIDThirdViewController.m */; };
 		2EF6F5E915C7C37B007BA3EB /* BIDThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5E715C7C37B007BA3EB /* BIDThirdViewController.xib */; };
@@ -133,7 +132,6 @@
 		2EF6F5D415C7C311007BA3EB /* BIDSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BIDSecondViewController.m; sourceTree = "<group>"; };
 		2EF6F5D615C7C311007BA3EB /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
 		2EF6F5D815C7C311007BA3EB /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		2EF6F5DB15C7C311007BA3EB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BIDFirstViewController.xib; sourceTree = "<group>"; };
 		2EF6F5DE15C7C311007BA3EB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BIDSecondViewController.xib; sourceTree = "<group>"; };
 		2EF6F5E515C7C37B007BA3EB /* BIDThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIDThirdViewController.h; sourceTree = "<group>"; };
 		2EF6F5E615C7C37B007BA3EB /* BIDThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIDThirdViewController.m; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 				2EF6F5CA15C7C311007BA3EB /* BIDAppDelegate.m */,
 				2EF6F5CC15C7C311007BA3EB /* BIDFirstViewController.h */,
 				2EF6F5CD15C7C311007BA3EB /* BIDFirstViewController.m */,
-				2EF6F5DA15C7C311007BA3EB /* BIDFirstViewController.xib */,
 				2EF6F5D315C7C311007BA3EB /* BIDSecondViewController.h */,
 				2EF6F5D415C7C311007BA3EB /* BIDSecondViewController.m */,
 				2EF6F5DD15C7C311007BA3EB /* BIDSecondViewController.xib */,
@@ -368,7 +365,6 @@
 				2EF6F5D215C7C311007BA3EB /* first@2x.png in Resources */,
 				2EF6F5D715C7C311007BA3EB /* second.png in Resources */,
 				2EF6F5D915C7C311007BA3EB /* second@2x.png in Resources */,
-				2EF6F5DC15C7C311007BA3EB /* BIDFirstViewController.xib in Resources */,
 				2EF6F5DF15C7C311007BA3EB /* BIDSecondViewController.xib in Resources */,
 				2EF6F5E915C7C37B007BA3EB /* BIDThirdViewController.xib in Resources */,
 				2EF6F5EE15C7C3DC007BA3EB /* BIDFourthViewController.xib in Resources */,
@@ -433,14 +429,6 @@
 				2EF6F5C415C7C311007BA3EB /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		2EF6F5DA15C7C311007BA3EB /* BIDFirstViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2EF6F5DB15C7C311007BA3EB /* en */,
-			);
-			name = BIDFirstViewController.xib;
 			sourceTree = "<group>";
 		};
 		2EF6F5DD15C7C311007BA3EB /* BIDSecondViewController.xib */ = {
