@@ -343,7 +343,7 @@ NSMutableArray *radiusResultArray = nil;
     myActionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
 
-    UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 10, 0, 0)];
     radiusPickerView.delegate = self;
     radiusPickerView.showsSelectionIndicator = YES;
     
@@ -352,8 +352,27 @@ NSMutableArray *radiusResultArray = nil;
     UIView *keyview = [[[[UIApplication sharedApplication] keyWindow]subviews]objectAtIndex:0]; // 최상단 뷰
     [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
     
-    [myActionSheet setBounds:CGRectMake(0, 0, 320, 410)];
+    [myActionSheet setBounds:CGRectMake(0, 0, 320, 424)];//바닥으로부터 액션시트의 위치(0,0), 액션시트의 크기(320,424)
     
+    //툴바
+    actionSheetToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -30, 320, 44)]; //액션시트 프레임 기준으로 툴바의 위치, 크기
+    actionSheetToolbar.barStyle = UIBarStyleBlackOpaque;
+    [actionSheetToolbar sizeToFit];
+    
+    NSMutableArray *barItems = [[NSMutableArray alloc] init];
+    
+    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    [barItems addObject:flexSpace]; //툴바에 빈공간 삽입
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closePicker:)];
+    [barItems addObject:doneBtn]; //툴바에 done 버튼 삽입
+    [actionSheetToolbar setItems:barItems animated:YES];
+    
+    [myActionSheet addSubview:actionSheetToolbar];//툴바 보여주기
+}
+
+- (BOOL)closePicker{
+    //툴바의 done 버튼 - 작동 안함 ㅠㅠ
+    [myActionSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 
@@ -386,7 +405,6 @@ NSMutableArray *radiusResultArray = nil;
     selectedRadius.text = [radiusArray objectAtIndex:row];//꼼수 라벨에 선택된 값 표시
     [self.radiusButton setTitle:selectedRadius.text forState:UIControlStateNormal];//반경 버튼 타이틀을 꼼수 라벨에 저장된 텍스트 값으로 변경 
 }
-
 
 
 
