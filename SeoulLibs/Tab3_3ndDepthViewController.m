@@ -134,8 +134,19 @@ NSMutableDictionary *distResult = Nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectedLib"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_class", indexPath.row]] forKey:@"currentLibInfo_class"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_id", indexPath.row]] forKey:@"currentLibInfo_id"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_distance", indexPath.row]] forKey:@"currentLibInfo_distance"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_longtitude", indexPath.row]] forKey:@"currentLibInfo_longtitude"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_latitude", indexPath.row]] forKey:@"currentLibInfo_latitude"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_name", indexPath.row]] forKey:@"currentLibInfo_name"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_category", indexPath.row]] forKey:@"currentLibInfo_category"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_guname", indexPath.row]] forKey:@"currentLibInfo_guname"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_dongname", indexPath.row]] forKey:@"currentLibInfo_dongname"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_slaveno", indexPath.row]] forKey:@"currentLibInfo_slaveno"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_organization", indexPath.row]] forKey:@"currentLibInfo_organization"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_opendate", indexPath.row]] forKey:@"currentLibInfo_guname"];
+
     [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"tabFlag"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     

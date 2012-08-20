@@ -9,6 +9,6 @@
 #import "MapMarker.h"
 
 @implementation MapMarker
-@synthesize coordinate, title, subtitle;
+@synthesize coordinate, title, subtitle, libNumber;
 
 @end

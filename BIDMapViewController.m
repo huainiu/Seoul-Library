@@ -64,24 +64,22 @@
     [myMapView .userLocation setTitle:@"현 위치"];
         
     for(int i=0; i<[[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"]; i++) {
-        NSLog(@"%i번째 annotation 찍힘.", i);
         
         MapMarker *marker = [[MapMarker alloc] init];
         MKCoordinateRegion markerRegion;
         markerRegion.center = CLLocationCoordinate2DMake([[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_latitude", i]] doubleValue], [[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_longtitude", i]] doubleValue]);
                 
         marker.coordinate = markerRegion.center;
-        marker.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_name", i]];       
-        
+        marker.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_name", i]];
+        marker.libNumber = i;
         [myMapView addAnnotation:marker];
     }
-    
 
 }   
     
 
 -(MKAnnotationView *)mapView:(MKMapView *)myMapView viewForAnnotation:(id<MKAnnotation>)annotation{
-    NSLog(@"viewForAnnotation 메서드 실행");
+    NSLog(@"BIDMapViewController - viewForAnnotation 메서드 실행");
     MKPinAnnotationView *dropPin = nil; //마커 준비
     static NSString *reusePinID = @"branchPin"; //마커 객체를 재사용 하기위한 ID
     
@@ -104,6 +102,14 @@
     return dropPin;
 
 }
+
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
+calloutAccessoryControlTapped:(UIControl *)control {
+    NSLog(@"BIDMapViewController - calloutAccessoryControlTapped 메서드 실행");
+    
+}
+
 
 
 - (void)viewDidUnload

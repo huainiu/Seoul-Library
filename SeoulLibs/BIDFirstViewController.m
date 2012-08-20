@@ -216,6 +216,19 @@ NSMutableArray *radiusResultArray = nil;
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"] forKey:[NSString stringWithFormat:@"1_lib%i_distance", i]];
             NSLog(@"도서관의 좌표%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"] forKey:[NSString stringWithFormat:@"1_lib%i_point", i]];
+            
+            //좌표 받아온거 파싱해서 longtitude와 latitude로 분리하기
+            NSArray *pointTempArray1 = [[[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"] componentsSeparatedByString:@"POINT("];
+            NSString *pointTempString1 = ((NSString *)[pointTempArray1 objectAtIndex:1]);
+            NSArray *pointTempArray2 = [pointTempString1 componentsSeparatedByString:@" "];
+            NSString *longtitude = ((NSString *)[pointTempArray2 objectAtIndex:0]);
+            NSArray *pointTempArray3 = [((NSString *)[pointTempArray2 objectAtIndex:1]) componentsSeparatedByString:@")"];
+            NSString *latitude = ((NSString *)[pointTempArray3 objectAtIndex:0]);
+            
+            [[NSUserDefaults standardUserDefaults] setValue:longtitude forKey:[NSString stringWithFormat:@"1_lib%i_longtitude", i]];
+            [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:[NSString stringWithFormat:@"1_lib%i_latitude", i]];
+            NSLog(@"longtitude : %@, latitude : %@", longtitude, latitude);
+            
             NSLog(@"도서관 이름%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"1_lib%i_name", i]];
             NSLog(@"도서관 구분%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"fly_gbn"]);
@@ -267,7 +280,20 @@ NSMutableArray *radiusResultArray = nil;
     BIDLibInfoViewController *libInfoViewController = [BIDLibInfoViewController alloc];
     
     [resultTable deselectRowAtIndexPath:indexPath animated:YES];
-    [[NSUserDefaults standardUserDefaults] setInteger:indexPath.row forKey:@"selectedLib"];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_class", indexPath.row]] forKey:@"currentLibInfo_class"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_id", indexPath.row]] forKey:@"currentLibInfo_id"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_distance", indexPath.row]] forKey:@"currentLibInfo_distance"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_longtitude", indexPath.row]] forKey:@"currentLibInfo_longtitude"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_latitude", indexPath.row]] forKey:@"currentLibInfo_latitude"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", indexPath.row]] forKey:@"currentLibInfo_name"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_category", indexPath.row]] forKey:@"currentLibInfo_category"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_guname", indexPath.row]] forKey:@"currentLibInfo_guname"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_dongname", indexPath.row]] forKey:@"currentLibInfo_dongname"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_slaveno", indexPath.row]] forKey:@"currentLibInfo_slaveno"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_organization", indexPath.row]] forKey:@"currentLibInfo_organization"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_opendate", indexPath.row]] forKey:@"currentLibInfo_guname"];
+    
     [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"tabFlag"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
