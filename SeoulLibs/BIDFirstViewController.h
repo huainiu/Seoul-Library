@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "BIDLibInfoViewController.h"
 
-@interface BIDFirstViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate >
+@interface BIDFirstViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIActionSheetDelegate>
 {
     UITableView *resultTable;
     CLLocationManager *locationManager;
@@ -20,6 +20,7 @@
     NSArray *listData;
     __weak IBOutlet UIButton *radiusButton;
     UIToolbar *actionSheetToolbar;
+    UILabel *noResultLabel;
 }
 
 - (void) getRadius:(NSString *)library_class longtitude:(NSString *)longtitude latitude:(NSString *)latitude radius:(NSString *)radius; //반경 검색
@@ -39,10 +40,10 @@
 @property (nonatomic, retain) IBOutlet UITableView *resultTable;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) CLLocation *startingPoint;
-@property (nonatomic, retain) UIActionSheet *myActionSheet;
+//@property (nonatomic, weak) UIActionSheet *myActionSheet;
 @property (weak, nonatomic) IBOutlet UIButton *radiusButton;
 @property (weak, nonatomic) UIToolbar *actionSheetToolbar; //액션시트 위 툴바
-
+@property (nonatomic, retain) IBOutlet UILabel *noResultLabel; //결과 없을 때 나오는 라벨
 
 
 

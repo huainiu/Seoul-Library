@@ -29,6 +29,8 @@ NSMutableArray *radiusResultArray = nil;
 
 @end
 
+UIActionSheet *myActionSheet = nil;
+
 @implementation BIDFirstViewController
 @synthesize radiusButton;//반경 선택 버튼
 @synthesize listData;
@@ -36,7 +38,8 @@ NSMutableArray *radiusResultArray = nil;
 @synthesize locationManager;
 @synthesize startingPoint;
 @synthesize activityIndicator;
-@synthesize myActionSheet;
+//@synthesize myActionSheet;
+@synthesize noResultLabel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -255,6 +258,14 @@ NSMutableArray *radiusResultArray = nil;
             [activityIndicator stopAnimating];     
             activityIndicator.hidden= TRUE;
             
+            if ([[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"] == 0) {
+                noResultLabel.hidden = FALSE;
+                resultTable.hidden = TRUE;
+            } else {
+                noResultLabel.hidden = TRUE;                
+                resultTable.hidden = FALSE;
+            }
+            
             [resultTable beginUpdates];
             NSIndexPath *indexPath0 = [NSIndexPath indexPathForRow:i inSection:0];
             
@@ -339,7 +350,6 @@ NSMutableArray *radiusResultArray = nil;
     
     UIView *keyview = [[[[UIApplication sharedApplication] keyWindow]subviews]objectAtIndex:0]; // 최상단 뷰
     
-    UIActionSheet *myActionSheet;
     myActionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
 
@@ -370,19 +380,23 @@ NSMutableArray *radiusResultArray = nil;
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
-    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [barItems addObject:flexSpace]; //툴바에 빈공간 삽입
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closePicker:)];
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closePicker)];
     [barItems addObject:doneBtn]; //툴바에 done 버튼 삽입
     [actionSheetToolbar setItems:barItems animated:YES];
     
     [myActionSheet addSubview:actionSheetToolbar];//툴바 보여주기
 }
 
-- (BOOL)closePicker{
+- (void)closePicker{
+    NSLog(@"closePick 메서드 실행");
+    
     //툴바의 done 버튼 - 작동 안함 ㅠㅠ
     [myActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+
 }
+
 
 
     
