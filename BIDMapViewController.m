@@ -12,6 +12,7 @@
 #import <CoreLocation/CLLocation.h>
 #import <MapKit/MKUserLocation.h>
 #import <MapKit/MKPinAnnotationView.h>
+#import "BIDLibInfoViewController.h"
 
 @interface BIDMapViewController ()
 
@@ -23,8 +24,6 @@
 @synthesize coordinate;
 @synthesize title;
 @synthesize subtitle;
-
-
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -74,12 +73,12 @@
         marker.libNumber = i;
         [myMapView addAnnotation:marker];
     }
-
 }   
     
 
 -(MKAnnotationView *)mapView:(MKMapView *)myMapView viewForAnnotation:(id<MKAnnotation>)annotation{
     NSLog(@"BIDMapViewController - viewForAnnotation 메서드 실행");
+    
     MKPinAnnotationView *dropPin = nil; //마커 준비
     static NSString *reusePinID = @"branchPin"; //마커 객체를 재사용 하기위한 ID
     
@@ -91,7 +90,7 @@
     
     //핀이 떨어지는 애니메이션
     dropPin.animatesDrop = YES;
-    
+        
     //마커 오른쪽에 (>) 모양 버튼 초기화.
     UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     
@@ -107,7 +106,26 @@
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
 calloutAccessoryControlTapped:(UIControl *)control {
     NSLog(@"BIDMapViewController - calloutAccessoryControlTapped 메서드 실행");
+    MapMarker *annotation = view.annotation;
+    int i = annotation.libNumber;
     
+    //2_lib%i_name
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_class", i]] forKey:@"currentLibInfo_class"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_id", i]] forKey:@"currentLibInfo_id"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_distance", i]] forKey:@"currentLibInfo_distance"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_longtitude", i]] forKey:@"currentLibInfo_longtitude"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_latitude", i]] forKey:@"currentLibInfo_latitude"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_name", i]] forKey:@"currentLibInfo_name"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_category", i]] forKey:@"currentLibInfo_category"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_guname", i]] forKey:@"currentLibInfo_guname"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_dongname", i]] forKey:@"currentLibInfo_dongname"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_slaveno", i]] forKey:@"currentLibInfo_slaveno"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_organization", i]] forKey:@"currentLibInfo_organization"];
+    [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"2_lib%i_opendate", i]] forKey:@"currentLibInfo_guname"];
+
+    BIDLibInfoViewController *libInfoViewController = [BIDLibInfoViewController alloc];
+    [self.navigationController pushViewController:libInfoViewController animated:YES];
+
 }
 
 

@@ -20,6 +20,7 @@ NSString *currentLatitude = nil;
 NSString *currentLongtitude = nil;
 
 int getRadiusDataFlag = 0;
+NSString *radius = @"500"; //반경 범위를 담아둘 변수. 디폴트가 500임.
 NSMutableArray *radiusDataArray = nil; 
 NSMutableArray *radiusSumArray = nil; 
 NSMutableArray *radiusResultArray = nil;
@@ -30,14 +31,12 @@ NSMutableArray *radiusResultArray = nil;
 
 @implementation BIDFirstViewController
 @synthesize radiusButton;//반경 선택 버튼
-@synthesize selectedRadius;//반경값 저장하는 꼼수 라벨
 @synthesize listData;
 @synthesize resultTable;
 @synthesize locationManager;
 @synthesize startingPoint;
 @synthesize activityIndicator;
 @synthesize myActionSheet;
-
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -57,7 +56,6 @@ NSMutableArray *radiusResultArray = nil;
     
     [super viewDidLoad];
     self.title = @"내 주변";
-    [selectedRadius setHidden:TRUE]; //숨겨둔 꼼수 라벨
     radiusArray = [[NSArray alloc] initWithObjects:@"100m", @"300m", @"500m", @"1km", @"3km", nil];
     [self.radiusButton setTitle:@"100m" forState:UIControlStateNormal]; //반경 버튼 초기값 100m
     
@@ -66,6 +64,8 @@ NSMutableArray *radiusResultArray = nil;
 
 - (void) viewDidAppear:(BOOL)animated {
     NSLog(@"FirstViewController viewDidAppear 메서드 실행");
+    
+    radiusButton.titleLabel.text = [NSString stringWithFormat:@"%@m", radius]; //반경선택 버튼 타이틀을, 현재 저장된 반경으로 세팅
     
     self.locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -276,11 +276,9 @@ NSMutableArray *radiusResultArray = nil;
 
 - (void)viewDidUnload
 {
-    [self setSelectedRadius:nil];
     radiusButton = nil;
     [self setRadiusButton:nil];
     radiusButton = nil;
-    selectedRadius = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -339,20 +337,34 @@ NSMutableArray *radiusResultArray = nil;
 
 - (IBAction)popupSetting {
     
+    UIView *keyview = [[[[UIApplication sharedApplication] keyWindow]subviews]objectAtIndex:0]; // 최상단 뷰
+    
     UIActionSheet *myActionSheet;
     myActionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
+<<<<<<< HEAD
 
     UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 10, 0, 0)];
+=======
+    
+    UIPickerView *radiusPickerView = [[UIPickerView alloc] init];
+//    UIPickerView *radiusPickerView = [[UIPickerView alloc] init];
+//    [radiusPickerView setFrame:CGRectMake(0.0f, keyview.frame.size.height - radiusPickerView.frame.size.height, keyview.frame.size.height, radiusPickerView.frame.size.height)]; //피커뷰 위치 지정
+    
+>>>>>>> 맵뷰에서 핀 선택시 해당 도서관 정보페이지로 이동 구현
     radiusPickerView.delegate = self;
     radiusPickerView.showsSelectionIndicator = YES;
     
-    [myActionSheet addSubview:radiusPickerView]; //액션시트에 피커뷰 띄우기
+//    [keyview addSubview:radiusPickerView];
     
-    UIView *keyview = [[[[UIApplication sharedApplication] keyWindow]subviews]objectAtIndex:0]; // 최상단 뷰
-    [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
     
+<<<<<<< HEAD
     [myActionSheet setBounds:CGRectMake(0, 0, 320, 424)];//바닥으로부터 액션시트의 위치(0,0), 액션시트의 크기(320,424)
+=======
+    [myActionSheet addSubview:radiusPickerView]; //액션시트에 피커뷰 띄우기
+    [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
+    [myActionSheet setBounds:CGRectMake(0, 0, 320, 410)]; //액션시트 위치 지정
+>>>>>>> 맵뷰에서 핀 선택시 해당 도서관 정보페이지로 이동 구현
     
     //툴바
     actionSheetToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -30, 320, 44)]; //액션시트 프레임 기준으로 툴바의 위치, 크기
@@ -402,8 +414,10 @@ NSMutableArray *radiusResultArray = nil;
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     //피커에서 선택한 반경을 버튼 타이틀로 반영
     NSLog(@"value:%i",row);
-    selectedRadius.text = [radiusArray objectAtIndex:row];//꼼수 라벨에 선택된 값 표시
-    [self.radiusButton setTitle:selectedRadius.text forState:UIControlStateNormal];//반경 버튼 타이틀을 꼼수 라벨에 저장된 텍스트 값으로 변경 
+    radius = [radiusArray objectAtIndex:row]; //피커에서 선택한 값을 저장
+    [self.radiusButton setTitle:radius forState:UIControlStateNormal];//반경 버튼 타이틀을 선택한 값으로 변경 
+    
+    //    [myActionSheet dismissWithClickedButtonIndex:0 animated:NO]; 액션시트 사라지게 하려는 시도
 }
 
 

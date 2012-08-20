@@ -39,17 +39,9 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"tabFlag"]) {
-        case 1:
-            self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
-            break;
-            
-        case 3:
-            self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
-            
-            break;
-    }
     
+    self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"currentLibInfo_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
+                
     //스크롤뷰 생성
     _scrollView.frame = CGRectMake(0, 0, 320, 320);
     _scrollView.contentSize = CGSizeMake(320,800);
@@ -70,16 +62,8 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
 - (void)viewDidAppear:(BOOL)animated {
     
     NSLog(@"LibInfoViewController - viewDidAppear 메서드 실행");
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"tabFlag"]) {
-        case 1:
-            [self getRating:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_class", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] idx:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_id", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]]];
-            break;
-            
-        case 3:
-            [self getRating:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_class", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] idx:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_id", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]]];
 
-            break;
-    }
+    [self getRating:[[NSUserDefaults standardUserDefaults] stringForKey:@"currentLibInfo_class"] idx:[[NSUserDefaults standardUserDefaults] stringForKey:@"currentLibInfo_id"]];
 }
 
 
@@ -165,7 +149,7 @@ NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해
 
 - (IBAction)rate:(id)sender
 {
-    [self updateRating:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_class", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] idx:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_id", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]] rating:ratingText.text uuid:[[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"] ];
+    [self updateRating:[[NSUserDefaults standardUserDefaults] stringForKey:@"currentLibInfo_class"] idx:[[NSUserDefaults standardUserDefaults] stringForKey:@"currentLibInfo_id"] rating:ratingText.text uuid:[[NSUserDefaults standardUserDefaults] stringForKey:@"uuid"] ];
 }
 
 
