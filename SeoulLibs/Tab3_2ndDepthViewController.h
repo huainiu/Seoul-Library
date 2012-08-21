@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 
-@interface Tab3_2ndDepthViewController : UITableViewController 
+@interface Tab3_2ndDepthViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 {
     UITableView *dongListTable;
     NSArray *dongListData;

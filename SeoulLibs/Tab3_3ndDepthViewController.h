@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 
-@interface Tab3_3ndDepthViewController : UITableViewController 
+@interface Tab3_3ndDepthViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 {
     UITableView *libListTable;
+    UILabel *noLibLabel;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *libListTable;
+@property (nonatomic, retain) IBOutlet UILabel *noLibLabel;
 
 @end

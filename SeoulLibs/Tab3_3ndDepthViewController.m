@@ -18,16 +18,16 @@
 
 NSMutableDictionary *distResult = Nil;
 
-
 @implementation Tab3_3ndDepthViewController
 
 @synthesize libListTable;
+@synthesize noLibLabel;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        // Custom initializatcion
     }
     return self;
 }
@@ -44,6 +44,20 @@ NSMutableDictionary *distResult = Nil;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"3ndDepthViewController - viewDidAppear 메서드 실행");
+    [libListTable reloadData];    
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"] == 0) {
+        noLibLabel.hidden = FALSE;
+        libListTable.hidden = TRUE;
+    } else {
+        noLibLabel.hidden = TRUE;
+        libListTable.hidden = FALSE;
+    }
+}
+
 
 - (void)viewDidUnload
 {
@@ -77,15 +91,15 @@ NSMutableDictionary *distResult = Nil;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *cIdentifier = @"cell"; //셀 구분자 정의
-    UITableViewCell *cell = [libListTable dequeueReusableCellWithIdentifier:cIdentifier]; //식별자와 함꼐 재사용가능한 셀 만들기
-    if(cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cIdentifier];
+    static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SimpleTableIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SimpleTableIdentifier];
     }
     
-    //    NSLog(@"lib%i : %@", indexPath.row, [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"lib%i", indexPath.row]]);
     cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_name", indexPath.row]];
-    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
     // Configure the cell...
     
     return cell;
@@ -134,6 +148,8 @@ NSMutableDictionary *distResult = Nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [libListTable deselectRowAtIndexPath:indexPath animated:YES];
+
     [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_class", indexPath.row]] forKey:@"currentLibInfo_class"];
     [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_id", indexPath.row]] forKey:@"currentLibInfo_id"];
     [[NSUserDefaults standardUserDefaults] setValue:[[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"3_lib%i_distance", indexPath.row]] forKey:@"currentLibInfo_distance"];
@@ -150,7 +166,6 @@ NSMutableDictionary *distResult = Nil;
     [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"tabFlag"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [libListTable deselectRowAtIndexPath:indexPath animated:YES];
     
     BIDLibInfoViewController *libInfoViewController = [BIDLibInfoViewController alloc];
     [self.navigationController pushViewController:libInfoViewController animated:YES];

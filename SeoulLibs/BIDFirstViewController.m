@@ -57,7 +57,6 @@ UIActionSheet *myActionSheet = nil;
 @synthesize startingPoint;
 @synthesize activityIndicator;
 //@synthesize myActionSheet;
-@synthesize noResultLabel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -292,26 +291,22 @@ UIActionSheet *myActionSheet = nil;
             //Activity Indicator 비활성화.
             [activityIndicator stopAnimating];     
             activityIndicator.hidden= TRUE;
+
             
-            if ([[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"] == 0) {
-                noResultLabel.hidden = FALSE;
-                resultTable.hidden = TRUE;
-            } else {
-                noResultLabel.hidden = TRUE;                
-                resultTable.hidden = FALSE;
-            }
-            
-            [resultTable beginUpdates];
-            NSIndexPath *indexPath0 = [NSIndexPath indexPathForRow:i inSection:0];
-            
-            NSArray *indexPathArray = [NSArray arrayWithObjects:indexPath0, nil];
-            
-            [resultTable reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
-            
-            [resultTable endUpdates];
-            
+//            [resultTable beginUpdates];
+//            NSIndexPath *indexPath0 = [NSIndexPath indexPathForRow:i inSection:0];
+//            
+//            NSArray *indexPathArray = [NSArray arrayWithObjects:indexPath0, nil];
+//            
+//            [resultTable reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+//            
+//            [resultTable endUpdates];
+//            
             getRadiusDataFlag = 0;
         }
+        
+        [resultTable reloadData];
+        
     }
     
     
@@ -362,23 +357,33 @@ UIActionSheet *myActionSheet = nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 30;
+    NSLog(@"FirstViewController - numberOfRowsInSection 메서드 실행");
+    
+    if (resultCount == 0) {
+        return 1;
+    } else {
+        return resultCount;
+    }
     //테이블 row 개수를 데이터 받아온 시점에서 다시 세팅할 수 있는지 확인 필요. 우선은 넉넉하게 잡아둠.
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"FirstViewController - cellForRowAtIndexPath 메서드 실행");
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-//    cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", indexPath.row]];
-    cell.textLabel.text = [libName objectAtIndex:indexPath.row];
-//    cell.detailTextLabel.text = [libDistance objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_distance", indexPath.row]];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+    
+    if (resultCount == 0) {
+        cell.textLabel.text = @"           검색 결과가 없습니다.";
+    } else {
+        cell.textLabel.text = [libName objectAtIndex:indexPath.row];
+        cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_distance", indexPath.row]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
     return cell;
 }
 

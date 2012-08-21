@@ -133,6 +133,7 @@ NSMutableArray *distResultArray = nil;
     }
     
     NSUInteger row = [indexPath row];
+    
     cell.textLabel.text = [dongListData objectAtIndex:row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -144,6 +145,8 @@ NSMutableArray *distResultArray = nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
+    [dongListTable deselectRowAtIndexPath:indexPath animated:NO];
+
     [[NSUserDefaults standardUserDefaults] setValue:[dongListData objectAtIndex:indexPath.row] forKey:@"selectedDong"];
     [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"tabFlag"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -160,7 +163,6 @@ NSMutableArray *distResultArray = nil;
     activityIndicator.hidden= FALSE;
     [activityIndicator startAnimating];
     
-    [dongListTable deselectRowAtIndexPath:indexPath animated:YES];
     
     if ( [[[NSUserDefaults standardUserDefaults] stringForKey:@"selectedDong"] isEqualToString:@"전체보기"] ) { //전체보기를 선택했을 경우에는 동이름 없이, 구 이름으로 행정구역 검색
         [self getDist:@"large" gu:[[NSUserDefaults standardUserDefaults] stringForKey:@"selectedGu"] dong:nil];

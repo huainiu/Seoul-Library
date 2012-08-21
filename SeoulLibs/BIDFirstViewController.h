@@ -20,7 +20,6 @@
     NSArray *listData;
     __weak IBOutlet UIButton *radiusButton;
     UIToolbar *actionSheetToolbar;
-    UILabel *noResultLabel;
 }
 
 - (void) getRadius:(NSString *)library_class longtitude:(NSString *)longtitude latitude:(NSString *)latitude radius:(NSString *)radius; //반경 검색
@@ -47,7 +46,6 @@
 //@property (nonatomic, weak) UIActionSheet *myActionSheet;
 @property (weak, nonatomic) IBOutlet UIButton *radiusButton;
 @property (weak, nonatomic) UIToolbar *actionSheetToolbar; //액션시트 위 툴바
-@property (nonatomic, retain) IBOutlet UILabel *noResultLabel; //결과 없을 때 나오는 라벨
 
 
 

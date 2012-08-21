@@ -62,17 +62,7 @@ NSMutableArray *searchResultArray = nil;
     
     searchFlag = 0;
     
-    for (int i=0; i < 24; i++) {
-        [guTable beginUpdates];
-        
-        NSIndexPath *indexPath0 = [NSIndexPath indexPathForRow:i inSection:0];
-        
-        NSArray *indexPathArray = [NSArray arrayWithObjects:indexPath0, nil];
-        
-        [guTable reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
-        
-        [guTable endUpdates];
-    }
+    [guTable reloadData];
 }
 
 
@@ -88,19 +78,6 @@ NSMutableArray *searchResultArray = nil;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [guTable deselectRowAtIndexPath:indexPath animated:YES];
-    [[NSUserDefaults standardUserDefaults] setValue:[listData objectAtIndex:indexPath.row] forKey:@"selectedGu"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [SearchBar resignFirstResponder];
-    
-    //해당 구의 도서관 목록 띄워주는 페이지 호출
-    Tab3_2ndDepthViewController *dongListViewController = [Tab3_2ndDepthViewController alloc];
-    [self.navigationController pushViewController:dongListViewController animated:YES];
 }
 
 
@@ -300,6 +277,21 @@ NSMutableArray *searchResultArray = nil;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [guTable deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[listData objectAtIndex:indexPath.row] forKey:@"selectedGu"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [SearchBar resignFirstResponder];
+    
+    //해당 구의 도서관 목록 띄워주는 페이지 호출
+    Tab3_2ndDepthViewController *dongListViewController = [Tab3_2ndDepthViewController alloc];
+    [self.navigationController pushViewController:dongListViewController animated:YES];
+}
+
 
 - (IBAction)backgroundTap {
     [SearchBar resignFirstResponder];
