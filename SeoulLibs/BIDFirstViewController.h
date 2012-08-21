@@ -36,7 +36,6 @@
 - (IBAction)refresh;
 //새로고침 메서드
 
-- (IBAction)dismissActionSheet:(id)sender;
 
 
 

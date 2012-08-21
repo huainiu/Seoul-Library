@@ -354,7 +354,7 @@ UIActionSheet *myActionSheet = nil;
     [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
 
 
-    UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 0, 0)];//툴바 부분을 비워두고 44부터 시작
 
     
 //    UIPickerView *radiusPickerView = [[UIPickerView alloc] init];
@@ -370,10 +370,10 @@ UIActionSheet *myActionSheet = nil;
     
     [myActionSheet addSubview:radiusPickerView]; //액션시트에 피커뷰 띄우기
     [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
-    [myActionSheet setBounds:CGRectMake(0, 0, 320, 415)]; //액션시트 위치 지정
+    [myActionSheet setBounds:CGRectMake(0, 0, 320, 500)]; //액션시트 위치 지정, 툴바와 피커 크기를 고려하여 바닥부터 크기를 설정
     
     //툴바
-    actionSheetToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)]; //액션시트 프레임 기준으로 툴바의 위치, 크기
+    actionSheetToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)]; //액션시트 프레임 기준으로 툴바의 위치, 크기
     actionSheetToolbar.barStyle = UIBarStyleBlackTranslucent;//툴바 스타일 검정 투명으로
     [actionSheetToolbar sizeToFit];
     
@@ -391,8 +391,8 @@ UIActionSheet *myActionSheet = nil;
 
 - (void)dismissActionSheet:(id)sender{
     NSLog(@"closePick 메서드 실행");
-    
     //툴바의 done 버튼 - 작동 안함 ㅠㅠ
+    [myActionSheet dismissWithClickedButtonIndex:0 animated:YES];
     [myActionSheet removeFromSuperview];
 }
 
@@ -425,10 +425,9 @@ UIActionSheet *myActionSheet = nil;
     radius = [radiusArray objectAtIndex:row]; //피커에서 선택한 값을 저장
     [self.radiusButton setTitle:radius forState:UIControlStateNormal];//반경 버튼 타이틀을 선택한 값으로 변경
     
-    [myActionSheet dismissWithClickedButtonIndex:0 animated:YES];//액션시트 닫기
-    [myActionSheet removeFromSuperview];//슈퍼뷰에서 액션시트 제거
-
-    //    [myActionSheet dismissWithClickedButtonIndex:0 animated:NO]; 액션시트 사라지게 하려는 시도
+    //여기서 액션시트 없어지면 이상해서 주석처리 해둠
+    //[myActionSheet dismissWithClickedButtonIndex:0 animated:YES];//액션시트 닫기
+    //[myActionSheet removeFromSuperview];//슈퍼뷰에서 액션시트 제거
 }
 
 
