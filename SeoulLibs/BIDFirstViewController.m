@@ -20,10 +20,28 @@ NSString *currentLatitude = nil;
 NSString *currentLongtitude = nil;
 
 int getRadiusDataFlag = 0;
-NSString *radius = @"100"; //반경 범위를 담아둘 변수. 디폴트가 100임.
+int resultCount = 0; //반경검색 결과의 수를 저장할 변수.
+NSString *radiusValue = @"100m"; //반경 범위를 담아둘 변수. 디폴트가 100임.
+NSString *radiusIntValue = @"100"; //반경 범위의 실제 숫자 값을 담아둘 변수. 디폴트 100.
 NSMutableArray *radiusDataArray = nil; 
 NSMutableArray *radiusSumArray = nil; 
 NSMutableArray *radiusResultArray = nil;
+
+NSMutableArray *libClass; //큰도서관,작은도서관 여부 데이터 저장 어레이
+NSMutableArray *libId; //도서관 id 저장 어레이
+NSMutableArray *libDistance; //도서관 거리 저장 어레이
+NSMutableArray *libLongitude; //도서관 경도 저장 어레이
+NSMutableArray *libLatitude; //도서관 위도 저장 어레이
+NSMutableArray *libName; //도서관 이름 저장 어레이
+NSMutableArray *libCategory; //도서관 분류 저장 어레이
+NSMutableArray *libGuname; //도서관 구이름 저장 어레이
+NSMutableArray *libDongname; //도서관 동이름 저장 어레이
+NSMutableArray *libMasterno; //도서관 주지번 저장 어레이
+NSMutableArray *libSlaveno; //도서관 보조지번 저장 어레이
+NSMutableArray *libOrganization; //도서관  저장 어레이
+NSMutableArray *libOpendate; //도서관 개관일 저장 어레이
+
+
 
 @interface BIDFirstViewController ()
 
@@ -68,7 +86,7 @@ UIActionSheet *myActionSheet = nil;
 - (void) viewDidAppear:(BOOL)animated {
     NSLog(@"FirstViewController viewDidAppear 메서드 실행");
     
-    radiusButton.titleLabel.text = [NSString stringWithFormat:@"%@m", radius]; //반경선택 버튼 타이틀을, 현재 저장된 반경으로 세팅
+    radiusButton.titleLabel.text = [NSString stringWithFormat:@"%@m", radiusValue]; //반경선택 버튼 타이틀을, 현재 저장된 반경으로 세팅
     
     self.locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -111,8 +129,8 @@ UIActionSheet *myActionSheet = nil;
     
     NSLog(@"latitude : %@, longtitude : %@", currentLatitude, currentLongtitude);
 
-    [self getRadius:@"large" longtitude:currentLongtitude latitude:currentLatitude radius:@"2000"];
-    [self getRadius:@"small" longtitude:currentLongtitude latitude:currentLatitude radius:@"2000"];
+    [self getRadius:@"large" longtitude:currentLongtitude latitude:currentLatitude radius:radiusIntValue];
+    [self getRadius:@"small" longtitude:currentLongtitude latitude:currentLatitude radius:radiusIntValue];
     
 }
 
@@ -181,17 +199,16 @@ UIActionSheet *myActionSheet = nil;
     SBJsonParser* parser = [ [ SBJsonParser alloc ] init ];
     NSMutableDictionary* radius = [ parser objectWithString: jsonString ];
     
-    NSLog(@"요청처리시간: %@", [radius valueForKey:@"time"]);
     NSLog(@"반경검색 결과의 수: %@", [radius valueForKey:@"total_rows"]);
     
     if (getRadiusDataFlag == 1) {
-        [[NSUserDefaults standardUserDefaults] setInteger:[[radius valueForKey:@"total_rows"] intValue] forKey:@"resultCount"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        NSLog(@"resultCount : %i", [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"]);
+        resultCount = [[radius valueForKey:@"total_rows"] intValue];
+        NSLog(@"resultCount : %i", resultCount);
     } else {
         [[NSUserDefaults standardUserDefaults] setInteger:[[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"] +[[radius valueForKey:@"total_rows"] intValue] forKey:@"resultCount"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        NSLog(@"resultCount : %i", [[NSUserDefaults standardUserDefaults] integerForKey:@"resultCount"]);
+        resultCount = resultCount + [[radius valueForKey:@"total_rows"] intValue];
+        NSLog(@"resultCount 합계: %i", resultCount);
     }
     
     radiusDataArray = [radius objectForKey:@"rows"];
@@ -214,15 +231,30 @@ UIActionSheet *myActionSheet = nil;
         NSSortDescriptor *arraySorter = [[NSSortDescriptor alloc] initWithKey:@"st_distance" ascending:YES];
         [radiusResultArray sortUsingDescriptors:[NSArray arrayWithObject:arraySorter]];
         
+        libClass = [[NSMutableArray alloc] init]; 
+        libId = [[NSMutableArray alloc] init];
+        libDistance = [[NSMutableArray alloc] init];
+        libLongitude = [[NSMutableArray alloc] init];
+        libLatitude = [[NSMutableArray alloc] init];
+        libName = [[NSMutableArray alloc] init];
+        libCategory = [[NSMutableArray alloc] init];
+        libGuname = [[NSMutableArray alloc] init];
+        libDongname = [[NSMutableArray alloc] init];
+        libMasterno = [[NSMutableArray alloc] init];
+        libSlaveno = [[NSMutableArray alloc] init];
+        libOrganization = [[NSMutableArray alloc] init];
+        libOpendate = [[NSMutableArray alloc] init];
+        
+        
         for (int i=0; i < [radiusResultArray count]; i++) {
-            NSLog(@"도서관 종류%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"lib_class"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"lib_class"] forKey:[NSString stringWithFormat:@"1_lib%i_class", i]];
-            NSLog(@"도서관 id%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
+//            [libClass addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"lib_class"]];
+            
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"] forKey:[NSString stringWithFormat:@"1_lib%i_id", i]];
+//            [libId addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"]];
             NSLog(@"도서관 distance%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"] forKey:[NSString stringWithFormat:@"1_lib%i_distance", i]];
-            NSLog(@"도서관의 좌표%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"]);
-            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"] forKey:[NSString stringWithFormat:@"1_lib%i_point", i]];
+//            [libDistance addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"]];
             
             //좌표 받아온거 파싱해서 longtitude와 latitude로 분리하기
             NSArray *pointTempArray1 = [[[radiusResultArray objectAtIndex:i] valueForKey:@"st_astext"] componentsSeparatedByString:@"POINT("];
@@ -233,24 +265,27 @@ UIActionSheet *myActionSheet = nil;
             NSString *latitude = ((NSString *)[pointTempArray3 objectAtIndex:0]);
             
             [[NSUserDefaults standardUserDefaults] setValue:longtitude forKey:[NSString stringWithFormat:@"1_lib%i_longtitude", i]];
+//            [libLongitude addObject:[[radiusResultArray objectAtIndex:i] valueForKey:longtitude]];
             [[NSUserDefaults standardUserDefaults] setValue:latitude forKey:[NSString stringWithFormat:@"1_lib%i_latitude", i]];
-            NSLog(@"longtitude : %@, latitude : %@", longtitude, latitude);
+//            [libLatitude addObject:[[radiusResultArray objectAtIndex:i] valueForKey:latitude]];
             
             NSLog(@"도서관 이름%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"]);
+            [libName addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"]];
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"fclty_nm"] forKey:[NSString stringWithFormat:@"1_lib%i_name", i]];
-            NSLog(@"도서관 구분%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"fly_gbn"]);
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"fly_gbn"] forKey:[NSString stringWithFormat:@"1_lib%i_category", i]];
-            NSLog(@"행정구 이름%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"gu_nm"]);
+//            [libCategory addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"fly_gbn"]];
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"gu_nm"] forKey:[NSString stringWithFormat:@"1_lib%i_guname", i]];
-            NSLog(@"행정동 이름%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"hnr_nm"]);
+//            [libGuname addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"gu_nm"]];
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"hnr_nm"] forKey:[NSString stringWithFormat:@"1_lib%i_dongname", i]];
-            NSLog(@"주 지번%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"masterno"]);
-            NSLog(@"보조 지번%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"slaveno"]);
+//            [libDongname addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"hnr_nm"]];
+            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"masterno"] forKey:[NSString stringWithFormat:@"1_lib%i_masterno", i]];
+//            [libMasterno addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"masterno"]];
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"slaveno"] forKey:[NSString stringWithFormat:@"1_lib%i_slaveno", i]];
-            NSLog(@"운영 주최%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"orn_org"]);
+//            [libSlaveno addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"slaveno"]];
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"orn_org"] forKey:[NSString stringWithFormat:@"1_lib%i_organization", i]];
-            NSLog(@"개관일%i: %@", i, [[radiusResultArray objectAtIndex:i] valueForKey:@"opnng_de"]);
+//            [libOrganization addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"orn_org"]];
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"opnng_de"] forKey:[NSString stringWithFormat:@"1_lib%i_opendate", i]];
+//            [libOpendate addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"opnng_de"]];
 
             [[NSUserDefaults standardUserDefaults] synchronize];
 
@@ -338,7 +373,9 @@ UIActionSheet *myActionSheet = nil;
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", indexPath.row]];
+//    cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_name", indexPath.row]];
+    cell.textLabel.text = [libName objectAtIndex:indexPath.row];
+//    cell.detailTextLabel.text = [libDistance objectAtIndex:indexPath.row];
     cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_distance", indexPath.row]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
@@ -389,11 +426,15 @@ UIActionSheet *myActionSheet = nil;
     
 }
 
+//액션시트 사라지게 하는 메서드
+//액션시트 툴바의 done 버튼 터치시 실행
 - (void)dismissActionSheet:(id)sender{
-    NSLog(@"closePick 메서드 실행");
-    //툴바의 done 버튼 - 작동 안함 ㅠㅠ
+    NSLog(@"FirstViewController - dismissActionSheet 메서드 실행");
+    
     [myActionSheet dismissWithClickedButtonIndex:0 animated:YES];
     [myActionSheet removeFromSuperview];
+    
+    [self viewDidAppear:NO];
 }
 
     
@@ -422,8 +463,23 @@ UIActionSheet *myActionSheet = nil;
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     //피커에서 선택한 반경을 버튼 타이틀로 반영
     NSLog(@"value:%i",row);
-    radius = [radiusArray objectAtIndex:row]; //피커에서 선택한 값을 저장
-    [self.radiusButton setTitle:radius forState:UIControlStateNormal];//반경 버튼 타이틀을 선택한 값으로 변경
+    radiusValue = [radiusArray objectAtIndex:row]; //피커에서 선택한 값을 저장
+    [self.radiusButton setTitle:radiusValue forState:UIControlStateNormal];//반경 버튼 타이틀을 선택한 값으로 변경
+    
+    //picker에서 선택한 값의 실제 숫자(단위는 미터)값을 변수에 저장
+    if ([radiusValue isEqualToString:@"100m"]) {
+        radiusIntValue = @"100";
+    } else if([radiusValue isEqualToString:@"300m"]) {
+        radiusIntValue = @"300";
+    } else if([radiusValue isEqualToString:@"500m"]) {
+        radiusIntValue = @"500";
+    } else if([radiusValue isEqualToString:@"1km"]) {
+        radiusIntValue = @"1000";
+    } else if ([radiusValue isEqualToString:@"3km"]) {
+        radiusIntValue = @"3000";
+    } else {
+        radiusIntValue = @"100";
+    }
     
     //여기서 액션시트 없어지면 이상해서 주석처리 해둠
     //[myActionSheet dismissWithClickedButtonIndex:0 animated:YES];//액션시트 닫기

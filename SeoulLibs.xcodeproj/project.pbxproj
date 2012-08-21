@@ -122,7 +122,7 @@
 		2EF6F5BE15C7C311007BA3EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2EF6F5C215C7C311007BA3EB /* SeoulLibs-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SeoulLibs-Info.plist"; sourceTree = "<group>"; };
 		2EF6F5C415C7C311007BA3EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		2EF6F5C615C7C311007BA3EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2EF6F5C615C7C311007BA3EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; wrapsLines = 1; };
 		2EF6F5C815C7C311007BA3EB /* SeoulLibs-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SeoulLibs-Prefix.pch"; sourceTree = "<group>"; };
 		2EF6F5C915C7C311007BA3EB /* BIDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BIDAppDelegate.h; sourceTree = "<group>"; };
 		2EF6F5CA15C7C311007BA3EB /* BIDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BIDAppDelegate.m; sourceTree = "<group>"; };
