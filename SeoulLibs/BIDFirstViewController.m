@@ -20,7 +20,7 @@ NSString *currentLatitude = nil;
 NSString *currentLongtitude = nil;
 
 int getRadiusDataFlag = 0;
-NSString *radius = @"500"; //반경 범위를 담아둘 변수. 디폴트가 500임.
+NSString *radius = @"100"; //반경 범위를 담아둘 변수. 디폴트가 100임.
 NSMutableArray *radiusDataArray = nil; 
 NSMutableArray *radiusSumArray = nil; 
 NSMutableArray *radiusResultArray = nil;
@@ -354,7 +354,7 @@ UIActionSheet *myActionSheet = nil;
     [myActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];//액션시트 스타일, 뭔지는 모르겠음
 
 
-    UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 10, 0, 0)];
+    UIPickerView *radiusPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 
     
 //    UIPickerView *radiusPickerView = [[UIPickerView alloc] init];
@@ -368,36 +368,33 @@ UIActionSheet *myActionSheet = nil;
 //    [keyview addSubview:radiusPickerView];
     
     
-    [myActionSheet setBounds:CGRectMake(0, 0, 320, 424)];//바닥으로부터 액션시트의 위치(0,0), 액션시트의 크기(320,424)
     [myActionSheet addSubview:radiusPickerView]; //액션시트에 피커뷰 띄우기
     [myActionSheet showInView:keyview];//최상단 뷰에 액션시트 띄우기
-    [myActionSheet setBounds:CGRectMake(0, 0, 320, 410)]; //액션시트 위치 지정
+    [myActionSheet setBounds:CGRectMake(0, 0, 320, 415)]; //액션시트 위치 지정
     
     //툴바
-    actionSheetToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -30, 320, 44)]; //액션시트 프레임 기준으로 툴바의 위치, 크기
-    actionSheetToolbar.barStyle = UIBarStyleBlackOpaque;
+    actionSheetToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)]; //액션시트 프레임 기준으로 툴바의 위치, 크기
+    actionSheetToolbar.barStyle = UIBarStyleBlackTranslucent;//툴바 스타일 검정 투명으로
     [actionSheetToolbar sizeToFit];
     
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [barItems addObject:flexSpace]; //툴바에 빈공간 삽입
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closePicker)];
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissActionSheet:)];
     [barItems addObject:doneBtn]; //툴바에 done 버튼 삽입
     [actionSheetToolbar setItems:barItems animated:YES];
     
     [myActionSheet addSubview:actionSheetToolbar];//툴바 보여주기
+    
 }
 
-- (void)closePicker{
+- (void)dismissActionSheet:(id)sender{
     NSLog(@"closePick 메서드 실행");
     
     //툴바의 done 버튼 - 작동 안함 ㅠㅠ
-    [myActionSheet dismissWithClickedButtonIndex:0 animated:YES];
-
+    [myActionSheet removeFromSuperview];
 }
-
-
 
     
 
@@ -426,8 +423,11 @@ UIActionSheet *myActionSheet = nil;
     //피커에서 선택한 반경을 버튼 타이틀로 반영
     NSLog(@"value:%i",row);
     radius = [radiusArray objectAtIndex:row]; //피커에서 선택한 값을 저장
-    [self.radiusButton setTitle:radius forState:UIControlStateNormal];//반경 버튼 타이틀을 선택한 값으로 변경 
+    [self.radiusButton setTitle:radius forState:UIControlStateNormal];//반경 버튼 타이틀을 선택한 값으로 변경
     
+    [myActionSheet dismissWithClickedButtonIndex:0 animated:YES];//액션시트 닫기
+    [myActionSheet removeFromSuperview];//슈퍼뷰에서 액션시트 제거
+
     //    [myActionSheet dismissWithClickedButtonIndex:0 animated:NO]; 액션시트 사라지게 하려는 시도
 }
 
