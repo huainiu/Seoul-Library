@@ -14,7 +14,7 @@
 {
     UITextField *guText;
     UIActivityIndicatorView *activityIndicator; //가운데 로딩 돌아가는거
-
+    
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *guText;
@@ -23,5 +23,10 @@
 - (IBAction)goToInnerDepth:(id)sender;
 // 구 선택하면 지도 뷰 컨트롤러로 이동
 - (IBAction)goSearch:(id)sender;
+
+- (IBAction)gangseogu:(id)sender; //강서구
+- (IBAction)yangcheongu:(id)sender; //양천구
+
+
 
 @end

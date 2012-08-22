@@ -60,6 +60,7 @@
 		2EF6F5F415C7C600007BA3EB /* fourth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5F015C7C600007BA3EB /* fourth@2x.png */; };
 		2EF6F5F515C7C600007BA3EB /* third.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5F115C7C600007BA3EB /* third.png */; };
 		2EF6F5F615C7C600007BA3EB /* third@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF6F5F215C7C600007BA3EB /* third@2x.png */; };
+		F28DF69E15E49F9500F9AFEA /* SEOULMAP.gif in Resources */ = {isa = PBXBuildFile; fileRef = F28DF69D15E49F9500F9AFEA /* SEOULMAP.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +148,7 @@
 		2EF6F5F215C7C600007BA3EB /* third@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third@2x.png"; sourceTree = "<group>"; };
 		2EF6F5F715C7CA7A007BA3EB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2EF6F5F915C7CB81007BA3EB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F28DF69D15E49F9500F9AFEA /* SEOULMAP.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SEOULMAP.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 		2E3A666115CC338D007A7F52 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				F28DF69D15E49F9500F9AFEA /* SEOULMAP.gif */,
 				2EDEA5E915D2A17600038F3D /* Default.png */,
 				2EF6F5F215C7C600007BA3EB /* third@2x.png */,
 				2EF6F5CF15C7C311007BA3EB /* first.png */,
@@ -383,6 +386,7 @@
 				2946993315DB74D4005368B4 /* Tab3_2ndDepthViewController.xib in Resources */,
 				2946993815DB74ED005368B4 /* Tab3_3ndDepthViewController.xib in Resources */,
 				292090FD15E28F3B000BA291 /* BIDFirstViewController.xib in Resources */,
+				F28DF69E15E49F9500F9AFEA /* SEOULMAP.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
