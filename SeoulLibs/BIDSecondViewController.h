@@ -26,6 +26,7 @@
 
 - (IBAction)gangseogu:(id)sender; //강서구
 - (IBAction)yangcheongu:(id)sender; //양천구
+- (IBAction)jongrogu:(id)sender; //종로구
 
 
 

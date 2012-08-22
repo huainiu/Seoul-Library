@@ -283,11 +283,27 @@ NSMutableArray *distResultArray2 = nil;
     activityIndicator.hidden= FALSE;
     [activityIndicator startAnimating];
     
-    [self getDist:@"large" gu:@"강서구" dong:nil];
-    [self getDist:@"small" gu:@"강서구" dong:nil];
+    [self getDist:@"large" gu:@"양천구" dong:nil];
+    [self getDist:@"small" gu:@"양천구" dong:nil];
 }
 
-
+//종로구
+- (void)jongrogu:(id)sender {
+    if(activityIndicator == nil){
+        //Activity Indicator 세팅
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+        [activityIndicator setCenter:self.view.center];
+        [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+        [self.view addSubview : activityIndicator];
+    }
+    
+    //Activity Indicator 활성화.
+    activityIndicator.hidden= FALSE;
+    [activityIndicator startAnimating];
+    
+    [self getDist:@"large" gu:@"종로구" dong:nil];
+    [self getDist:@"small" gu:@"종로구" dong:nil];
+}
 
 
 
