@@ -21,6 +21,16 @@
 NSString *libInfoDataFlag = nil; //어떤 데이터를 받아온건지 구분해주는 flag
 NSString *libInfoDataFlag2 = nil; //어떤 데이터를 받아온건지 구분해주는 flag
 
+NSString *averageRating = nil; //평균평점
+
+int commentCount = 0; //댓글 개수
+NSMutableArray *commentId; //댓글 id
+NSMutableArray *commentLibid; //댓글 달린 도서관 id
+NSMutableArray *commentArticle; //댓글 본문
+NSMutableArray *commentUuid; //댓글 단 기기의 uuid 
+NSMutableArray *commentDate; //댓글 작성일자
+
+
 @implementation BIDLibInfoViewController
 
 @synthesize scrollView = _scrollView;
@@ -41,15 +51,14 @@ NSString *libInfoDataFlag2 = nil; //어떤 데이터를 받아온건지 구분�
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"commentCount"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
+        
     self.title = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"currentLibInfo_name", [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedLib"]]];
                 
     //스크롤뷰 생성
     _scrollView.frame = CGRectMake(0, 0, 320, 320);
     _scrollView.contentSize = CGSizeMake(320,800);
+    
+    averageRating = [[NSString alloc] init];
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -67,8 +76,8 @@ NSString *libInfoDataFlag2 = nil; //어떤 데이터를 받아온건지 구분�
 - (void)viewDidAppear:(BOOL)animated {
 
     NSLog(@"LibInfoViewController - viewDidAppear 메서드 실행");
-
-    ratingLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"averageRating"];
+    
+//    ratingLabel.text = averageRating;
     
     [self getRating:[[NSUserDefaults standardUserDefaults] stringForKey:@"currentLibInfo_class"] idx:[[NSUserDefaults standardUserDefaults] stringForKey:@"currentLibInfo_id"]];
     
@@ -127,10 +136,19 @@ NSString *libInfoDataFlag2 = nil; //어떤 데이터를 받아온건지 구분�
     for (int i=0; i < [rowsArray count]; i++) {
         NSLog(@"도서관 id: %@", [[rowsArray objectAtIndex:i] valueForKey:@"cartodb_id"]);
         NSLog(@"해당 도서관의 평점 평균: %@", [[rowsArray objectAtIndex:i] valueForKey:@"average"]);
-        [[NSUserDefaults standardUserDefaults] setValue:[[rowsArray objectAtIndex:i] valueForKey:@"average"] forKey:@"averageRating"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+//        [[NSUserDefaults standardUserDefaults] setValue:[[rowsArray objectAtIndex:i] valueForKey:@"average"] forKey:@"averageRating"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        averageRating = [[rowsArray objectAtIndex:i] valueForKey:@"average"];
+        
     }
-    ratingLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"averageRating"];
+    
+    if (averageRating != nil) {
+        ratingLabel.text = averageRating;
+    } else {
+        ratingLabel.text = @"0";
+    }
 }
 
 
@@ -162,6 +180,12 @@ NSString *libInfoDataFlag2 = nil; //어떤 데이터를 받아온건지 구분�
 - (void) parseComment:(NSString *)jsonString {
     NSLog(@"BIDLibInfoViewController - parseComment 메서드 실행");
 
+    commentId = [[NSMutableArray alloc] init]; //댓글 id
+    commentLibid = [[NSMutableArray alloc] init]; //댓글 달린 도서관 id
+    commentArticle = [[NSMutableArray alloc] init]; //댓글 본문
+    commentUuid = [[NSMutableArray alloc] init]; //댓글 단 기기의 uuid 
+    commentDate = [[NSMutableArray alloc] init]; //댓글 작성일자
+    
     SBJsonParser* parser = [ [ SBJsonParser alloc ] init ];
     
     NSMutableDictionary* comment = [ parser objectWithString: jsonString ];    
@@ -169,30 +193,41 @@ NSString *libInfoDataFlag2 = nil; //어떤 데이터를 받아온건지 구분�
     NSLog(@"요청처리시간: %@", [comment valueForKey:@"time"]);
     NSLog(@"댓글요청 결과의 수: %@", [comment valueForKey:@"total_rows"]);
     
-    NSArray *rowsArray = [ comment objectForKey:@"rows"];
-    [[NSUserDefaults standardUserDefaults] setInteger:[rowsArray count] forKey:@"commentCount"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    commentCount = [[comment valueForKey:@"total_rows"] intValue]; //댓글요청 결과의 수 변수에 저장
     
-    for (int i=0; i < [[NSUserDefaults standardUserDefaults] integerForKey:@"commentCount"]; i++) {
+    NSArray *rowsArray = [ comment objectForKey:@"rows"];
+    
+    for (int i=0; i < commentCount; i++) {
         [[NSUserDefaults standardUserDefaults] setValue:[[rowsArray objectAtIndex:i] valueForKey:@"comment_id"] forKey:[NSString stringWithFormat:@"comment%i_id", i]];
+        
+        [commentId addObject:[[rowsArray objectAtIndex:i] valueForKey:@"comment_id"]];
+        
         [[NSUserDefaults standardUserDefaults] setValue:[[rowsArray objectAtIndex:i] valueForKey:@"cartodb_id"] forKey:[NSString stringWithFormat:@"comment%i_libid", i]];
+        
+        [commentLibid addObject:[[rowsArray objectAtIndex:i] valueForKey:@"cartodb_id"]];
+        
         NSLog(@"해당 댓글의 본문%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"comment_article"]);
         [[NSUserDefaults standardUserDefaults] setValue:[[rowsArray objectAtIndex:i] valueForKey:@"comment_article"] forKey:[NSString stringWithFormat:@"comment%i_article", i]];
+        
+        [commentArticle addObject:[[rowsArray objectAtIndex:i] valueForKey:@"comment_article"]];
+
+        
         [[NSUserDefaults standardUserDefaults] setValue:[[rowsArray objectAtIndex:i] valueForKey:@"comment_uuid"] forKey:[NSString stringWithFormat:@"comment%i_uuid", i]];
+
+        [commentUuid addObject:[[rowsArray objectAtIndex:i] valueForKey:@"comment_uuid"]];
+        
         NSLog(@"코멘트를 남긴 시각%i: %@", i, [[rowsArray objectAtIndex:i] valueForKey:@"comment_date"]);
-        [[NSUserDefaults standardUserDefaults] setValue:[[rowsArray objectAtIndex:i] valueForKey:@"comment_date"] forKey:[NSString stringWithFormat:@"comment%i_date", i]];
         
-        [commentTable beginUpdates];
-        NSIndexPath *indexPath0 = [NSIndexPath indexPathForRow:i inSection:0];
+        //가져온 DATE 파싱
+        NSString *tempCommentDate = [[rowsArray objectAtIndex:i] valueForKey:@"comment_date"];
+        NSArray *tempCommentDateArray = [tempCommentDate componentsSeparatedByString:@"T"];
+        NSString *parsingCommentDate = ((NSString *)[tempCommentDateArray objectAtIndex:0]);
         
-        NSArray *indexPathArray = [NSArray arrayWithObjects:indexPath0, nil];
-        
-        [commentTable reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
-        
-        [commentTable endUpdates];
+        [[NSUserDefaults standardUserDefaults] setValue:parsingCommentDate forKey:[NSString stringWithFormat:@"comment%i_date", i]];
+        [commentDate addObject:parsingCommentDate];
     }
     
-    
+    [commentTable reloadData];
     
 }
 
@@ -352,19 +387,21 @@ NSString *libInfoDataFlag2 = nil; //어떤 데이터를 받아온건지 구분�
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5; //다시 설정해야함. 임의로 5개로 잡아둠.
+    NSLog(@"BIDLibInfoViewController - numberOfRowsInSection 메서드 실행");
+    return commentCount;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"BIDLibInfoViewController - cellForRowsAtIndexPath 메서드 실행");
     static NSString *cIdentifier = @"cell"; //셀 구분자 정의
     UITableViewCell *cell = [commentTable dequeueReusableCellWithIdentifier:cIdentifier]; //식별자와 함꼐 재사용가능한 셀 만들기
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cIdentifier];
     }
     
-        cell.textLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"comment%i_article", indexPath.row]];
-        cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"comment%i_date", indexPath.row]];
+    cell.textLabel.text = [commentArticle objectAtIndex:indexPath.row];
+    cell.detailTextLabel.text = [commentDate objectAtIndex:indexPath.row];
     
     return cell;
 }

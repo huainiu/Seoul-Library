@@ -371,7 +371,7 @@ UIActionSheet *myActionSheet = nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"FirstViewController - cellForRowAtIndexPath 메서드 실행");
+    NSLog(@"FirstViewController - cellForRowAtIndexPath 메서드 실행. row : %i", indexPath.row);
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -381,6 +381,9 @@ UIActionSheet *myActionSheet = nil;
     
     if (resultCount == 0) {
         cell.textLabel.text = @"           검색 결과가 없습니다.";
+        //Activity Indicator 비활성화.
+        [activityIndicator stopAnimating];     
+        activityIndicator.hidden= TRUE;
     } else {
         cell.textLabel.text = [libName objectAtIndex:indexPath.row];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%fm", [[NSUserDefaults standardUserDefaults] floatForKey:[NSString stringWithFormat:@"1_lib%i_distance", indexPath.row]]];
