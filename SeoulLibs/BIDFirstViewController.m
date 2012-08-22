@@ -252,7 +252,10 @@ UIActionSheet *myActionSheet = nil;
             [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"] forKey:[NSString stringWithFormat:@"1_lib%i_id", i]];
 //            [libId addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"cartodb_id"]];
             NSLog(@"도서관 distance%i: %@", i,[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"]);
-            [[NSUserDefaults standardUserDefaults] setValue:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"] forKey:[NSString stringWithFormat:@"1_lib%i_distance", i]];
+            
+            NSLog(@"distance floatValue : %f", [[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"] floatValue]);
+            
+            [[NSUserDefaults standardUserDefaults] setFloat:[[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"] floatValue] forKey:[NSString stringWithFormat:@"1_lib%i_distance", i]];
 //            [libDistance addObject:[[radiusResultArray objectAtIndex:i] valueForKey:@"st_distance"]];
             
             //좌표 받아온거 파싱해서 longtitude와 latitude로 분리하기
@@ -373,14 +376,14 @@ UIActionSheet *myActionSheet = nil;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
     if (resultCount == 0) {
         cell.textLabel.text = @"           검색 결과가 없습니다.";
     } else {
         cell.textLabel.text = [libName objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] stringForKey:[NSString stringWithFormat:@"1_lib%i_distance", indexPath.row]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%fm", [[NSUserDefaults standardUserDefaults] floatForKey:[NSString stringWithFormat:@"1_lib%i_distance", indexPath.row]]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
